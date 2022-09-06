@@ -38,15 +38,6 @@ public class TankMovement : MonoBehaviour
             m_CurrentPosition = m_PreviousPosition = m_Rigidbody.position;
     }
 
-    private void Update()
-    {
-        var hor = Input.GetAxis("Horizontal");
-        var ver = Input.GetAxis("Vertical");
-
-        Turn(hor);
-        Move(ver);
-    }
-
     private void FixedUpdate()
     {
         // ç¿ïWÇ∆âÒì]çXêV
