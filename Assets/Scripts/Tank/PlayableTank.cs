@@ -12,6 +12,9 @@ public class PlayableTank : MonoBehaviour,IPlayerInput
     [SerializeField]
     private TankMovement m_TankMovement;
 
+    [SerializeField]
+    private TankShooting m_TankShooting;
+
     // ˆÚ“®—Ê‚Ì“ü—Í’l
     private Vector2 m_InputMoveVector = Vector2.zero;
 
@@ -19,7 +22,7 @@ public class PlayableTank : MonoBehaviour,IPlayerInput
     {
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // ˆÚ“®‚Æ‰ñ“]
         Movement();
@@ -49,5 +52,7 @@ public class PlayableTank : MonoBehaviour,IPlayerInput
     /// <param name="inputValue"></param>
     public void OnFire(InputAction.CallbackContext context)
     {
+        Debug.Log("”­ŽË");
+        m_TankShooting.Fire();
     }
 }
