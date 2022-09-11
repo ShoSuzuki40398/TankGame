@@ -8,11 +8,7 @@ public static class MathfExtention
     /// <summary>
     /// 汎用値範囲チェック
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="value"></param>
-    /// <param name="min"></param>
-    /// <param name="max"></param>
-    /// <returns></returns>
+    /// <returns>min未満かmaxより大きいとfalse</returns>
     public static bool IsRange<T>(this T value, T min, T max) where T : IComparable
     {
         bool res = true;
