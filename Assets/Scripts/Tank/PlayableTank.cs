@@ -52,7 +52,15 @@ public class PlayableTank : MonoBehaviour,IPlayerInput
     /// <param name="inputValue"></param>
     public void OnFire(InputAction.CallbackContext context)
     {
-        Debug.Log("発射");
-        m_TankShooting.Fire();
+        // 押した瞬間だけ有効
+        // Was○○ThisFrameがないと他のphaseも拾って1度に複数回呼ばれるので注意する
+        // started
+        // performed ← ここで射撃入力とする
+        // release
+        if (context.action.WasPerformedThisFrame())
+        {
+            MyDebug.Log("射撃ボタン押した");
+            m_TankShooting.Fire();
+        }
     }
 }

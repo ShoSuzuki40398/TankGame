@@ -46,6 +46,15 @@ public class Shell : MonoBehaviour
     }
 
     /// <summary>
+    /// –C’e‚ÌƒŒƒCƒ„[‚ğİ’è
+    /// ©•ª‚ªŒ‚‚Á‚½‚©“G‚ªŒ‚‚Á‚½‚©‚ÅÕ“Ë”»’è‚Ì—L–³‚ğ•Ï‚¦‚½‚¢
+    /// </summary>
+    public void SetLayer(string layerName)
+    {
+        gameObject.layer = LayerMask.NameToLayer(layerName);
+    }
+
+    /// <summary>
     /// ‰ğ•úˆ—
     /// </summary>
     private void Release()

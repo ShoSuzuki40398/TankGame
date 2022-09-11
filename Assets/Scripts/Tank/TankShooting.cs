@@ -18,22 +18,21 @@ public class TankShooting : MonoBehaviour
     public float m_MaxLaunchForce = 30f;        // The force given to the shell if the fire button is held for the max charge time.
    private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
 
-
+    // –C’eƒv[ƒ‹
     [SerializeField]
     private ShellPool m_ShellPool;
+
+    // ©g‚Ì–C’eƒŒƒCƒ„[
+    [SerializeField]
+    private string selfShellLayer;
+
 
     // Start is called before the first frame update
     void Start()
     {
         m_CurrentLaunchForce = m_MinLaunchForce;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     /// <summary>
     /// ’e‚ğ”­Ëo—ˆ‚é‚©Šm”F‚·‚é
     /// </summary>
@@ -48,6 +47,7 @@ public class TankShooting : MonoBehaviour
         // ’e‚ğ¶¬‚µÀ•W‚Æ•ûŒü‚ğİ’è
         ShellObject shellObj = m_ShellPool.Pop();
         shellObj.shell.Initialize(m_BulletSpawnPoint.position,m_BulletSpawnPoint.rotation);
+        shellObj.shell.SetLayer(selfShellLayer);
         return shellObj;
     }
 
@@ -58,7 +58,7 @@ public class TankShooting : MonoBehaviour
     {
         if (!CheckSpawnShell())
             return;
-
+        MyDebug.Log("”­Ë");
         // Create an instance of the shell and store a reference to it's rigidbody.
         ShellObject shellObj = SpawnShell();
         Rigidbody shellRigidbody = shellObj.shell.m_Rigidbody;
@@ -74,9 +74,15 @@ public class TankShooting : MonoBehaviour
 
         m_IsFire = false;
 
+        // –C’eÄ‘•“U
         StartCoroutine(RecavShell());
     }
 
+    /// <summary>
+    /// –C’eÄ‘•“U
+    /// ŠÔw’è‚ÅÄËŒ‚‚Ü‚Å‚ÌƒCƒ“ƒ^[ƒoƒ‹‚ğs‚¤
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator RecavShell()
     {
         yield return new WaitForSeconds(1.0f);
