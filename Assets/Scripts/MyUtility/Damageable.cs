@@ -111,6 +111,8 @@ public class Damageable : MonoBehaviour, IDamageable
     {
         // 現在HPにダメージ値で更新
         m_CurrentHealth -= (int)(damage * damageScale);
+        // 0 ～ Maxでクランプ
+        m_CurrentHealth = Mathf.Clamp(m_CurrentHealth, 0, startingHealth);
     }
 
     // IDamageable--------------------------------------------------------------- //
