@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 2362027772340485320}
   - component: {fileID: 2362027772340485323}
   - component: {fileID: 8836035540056036578}
+  - component: {fileID: 6224011684209733206}
   m_Layer: 8
   m_Name: Tank
   m_TagString: Untagged
@@ -540,7 +541,19 @@ MonoBehaviour:
   disableOnDeath: 0
   OnTakeDamage:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6224011684209733206}
+        m_TargetAssemblyTypeName: TankHealth, Assembly-CSharp
+        m_MethodName: HPChange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2362027772340485323}
+          m_ObjectArgumentAssemblyTypeName: Damageable, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnDie:
     m_PersistentCalls:
       m_Calls:
@@ -568,7 +581,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129b40d445b44c04dacc56d092e8f7e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ExplosionEffect: {fileID: 0}
+  m_ExplosionEffect: {fileID: 2362027773779143700}
+--- !u!114 &6224011684209733206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7207846873992599885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb1a3d3ac6d7994183085b585222a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HPGaugeViewPrefab: {fileID: 3146802800071329494, guid: 1946234a3408575468bc1ec68fd5e496,
+    type: 3}
+  m_HPGaugeViewParent: {fileID: 0}
+  m_ViewOffset: {x: 0, y: 1.2, z: 0}
 --- !u!1 &7894403138453790991
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +706,12 @@ PrefabInstance:
 --- !u!4 &2362027773760866266 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7228310394268958361, guid: 0f211590b01da42478d6f25cf4aa1389,
+    type: 3}
+  m_PrefabInstance: {fileID: 4942566172592027971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2362027773779143700 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7228310394283218263, guid: 0f211590b01da42478d6f25cf4aa1389,
     type: 3}
   m_PrefabInstance: {fileID: 4942566172592027971}
   m_PrefabAsset: {fileID: 0}
