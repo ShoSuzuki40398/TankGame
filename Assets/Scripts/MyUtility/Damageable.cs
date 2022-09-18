@@ -115,6 +115,15 @@ public class Damageable : MonoBehaviour, IDamageable
         m_CurrentHealth = Mathf.Clamp(m_CurrentHealth, 0, startingHealth);
     }
 
+    /// <summary>
+    /// ダメージリセット
+    /// </summary>
+    public void ResetHealth()
+    {
+        m_CurrentHealth = startingHealth;
+        DisableInvulnerability();
+    }
+
     // IDamageable--------------------------------------------------------------- //
 
     public void TakeDamage(Damager damager)
@@ -135,8 +144,8 @@ public class Damageable : MonoBehaviour, IDamageable
         if (m_CurrentHealth <= 0)
         {
             MyDebug.Log("やられた");
-            OnDie.Invoke(damager, this);
             EnableInvulnerability();
+            OnDie.Invoke(damager, this);            
             if (disableOnDeath)
                 gameObject.SetActive(false);
         }
