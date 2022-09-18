@@ -101,21 +101,18 @@ public class Respawner : MonoBehaviour
         Vector3 respawnPos = m_RespawnPoints[0].transform.position;
         float maxDistance = Vector3.Distance(m_RespawnPoints[0].transform.position,target);
         int index = 0;
-        Debug.Log("距離：" + maxDistance + " , " + "番号：" + index);
         for (int i = index + 1; i < m_RespawnPoints.Length; ++i)
         {
             respawnPos = m_RespawnPoints[i].transform.position;
             float distance = Vector3.Distance(respawnPos, target);
-
-            Debug.Log("距離：" + distance + " , " + "番号：" + index);
+            
             if (distance > maxDistance)
             {
                 maxDistance = distance;
                 index = i;
             }
         }
-
-        Debug.Log("決定　：" + "距離：" + maxDistance + " , " + "番号：" + index);
+        
         return m_RespawnPoints[index].transform;
     }
 
