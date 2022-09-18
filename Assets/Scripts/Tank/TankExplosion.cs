@@ -14,7 +14,7 @@ public class TankExplosion : MonoBehaviour
     /// <summary>
     /// ”š”­‰‰oÄ¶
     /// </summary>
-    public void Explosion()
+    public void Explosion(Damager damager,Damageable damageable)
     {
         if (m_ExplosionEffect == null)
             return;

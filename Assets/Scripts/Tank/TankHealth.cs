@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 戦車の体力表示
+/// UI上に戦車の体力を表示するクラスです。
+/// 実際のHP管理はDamagebleクラスが担当しています。
+/// </summary>
 public class TankHealth : MonoBehaviour
 {
     // 体力バー
@@ -60,9 +65,17 @@ public class TankHealth : MonoBehaviour
     /// HPを設定
     /// </summary>
     /// <param name="damageable"></param>
-    public void HPChange(Damageable damageable)
+    public void HPChange(Damager damager, Damageable damageable)
     {
-        MyDebug.Log("damageable.CurrentHealth : " + damageable.CurrentHealth);
         m_HPGaugeView.SetHP(damageable.CurrentHealth);
+    }
+
+    /// <summary>
+    /// HPを設定
+    /// </summary>
+    /// <param name="damageable"></param>
+    public void HPChange(float health)
+    {
+        m_HPGaugeView.SetHP(health);
     }
 }
