@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 2563091999306667955}
   - component: {fileID: 2332953042040091233}
   - component: {fileID: 5205823819820660693}
+  - component: {fileID: 904826656}
   m_Layer: 0
   m_Name: TankTracksLeft
   m_TagString: TankParts
@@ -115,6 +116,105 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &904826656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524619167666066918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe7cbe28d71c6943b10738236d601f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InpulseProperty:
+    RotationAngle: {x: 5, y: 10, z: 5}
+    m_RotateSpeed: 2
+    m_BetweenInpuluseVelocityX:
+      min: -0.1
+      max: 0.1
+    m_BetweenInpuluseVelocityY:
+      min: 0.3
+      max: 0.5
+    m_BetweenInpuluseVelocityZ:
+      min: -0.1
+      max: 0.1
+    m_InpulsePower: 10
+    m_PowerCurveX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_PowerCurveY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: -1
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_PowerCurveZ:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_SpeedRatio: 1
+  m_InpulseTime: 3
 --- !u!1 &1579816166033407688
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +226,7 @@ GameObject:
   - component: {fileID: 8412386558831828892}
   - component: {fileID: 6412623590862906247}
   - component: {fileID: 2988267229853057658}
+  - component: {fileID: 245910733}
   m_Layer: 0
   m_Name: TankTracksRight
   m_TagString: TankParts
@@ -199,6 +300,105 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &245910733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579816166033407688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe7cbe28d71c6943b10738236d601f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InpulseProperty:
+    RotationAngle: {x: 5, y: 10, z: 5}
+    m_RotateSpeed: 2
+    m_BetweenInpuluseVelocityX:
+      min: -0.1
+      max: 0.1
+    m_BetweenInpuluseVelocityY:
+      min: 0.3
+      max: 0.5
+    m_BetweenInpuluseVelocityZ:
+      min: -0.1
+      max: 0.1
+    m_InpulsePower: 10
+    m_PowerCurveX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_PowerCurveY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: -1
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_PowerCurveZ:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_SpeedRatio: 1
+  m_InpulseTime: 3
 --- !u!1 &2358499967141936370
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,6 +410,7 @@ GameObject:
   - component: {fileID: 178144014835343854}
   - component: {fileID: 6612846036972359561}
   - component: {fileID: 7567093761986771824}
+  - component: {fileID: 1165109749}
   m_Layer: 0
   m_Name: TankTurret
   m_TagString: TankParts
@@ -284,6 +485,105 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1165109749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2358499967141936370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe7cbe28d71c6943b10738236d601f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InpulseProperty:
+    RotationAngle: {x: 5, y: 10, z: 5}
+    m_RotateSpeed: 2
+    m_BetweenInpuluseVelocityX:
+      min: -0.1
+      max: 0.1
+    m_BetweenInpuluseVelocityY:
+      min: 0.3
+      max: 0.5
+    m_BetweenInpuluseVelocityZ:
+      min: -0.1
+      max: 0.1
+    m_InpulsePower: 10
+    m_PowerCurveX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_PowerCurveY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: -1
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_PowerCurveZ:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_SpeedRatio: 1
+  m_InpulseTime: 3
 --- !u!1 &2980740296402646166
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +630,7 @@ GameObject:
   - component: {fileID: 2376165100554380358}
   - component: {fileID: 5667995800455134576}
   - component: {fileID: 2032174486092638073}
+  - component: {fileID: 880739126}
   m_Layer: 0
   m_Name: TankChassis
   m_TagString: TankParts
@@ -404,6 +705,105 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &880739126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3401752685295109247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe7cbe28d71c6943b10738236d601f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InpulseProperty:
+    RotationAngle: {x: 5, y: 10, z: 5}
+    m_RotateSpeed: 2
+    m_BetweenInpuluseVelocityX:
+      min: -0.1
+      max: 0.1
+    m_BetweenInpuluseVelocityY:
+      min: 0.3
+      max: 0.5
+    m_BetweenInpuluseVelocityZ:
+      min: -0.1
+      max: 0.1
+    m_InpulsePower: 10
+    m_PowerCurveX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_PowerCurveY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: -1
+        inSlope: -2
+        outSlope: -2
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_PowerCurveZ:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_SpeedRatio: 1
+  m_InpulseTime: 3
 --- !u!1 &7207846873992599885
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,10 +946,10 @@ MonoBehaviour:
       - m_Target: {fileID: 6224011684209733206}
         m_TargetAssemblyTypeName: TankHealth, Assembly-CSharp
         m_MethodName: HPChange
-        m_Mode: 2
+        m_Mode: 0
         m_Arguments:
-          m_ObjectArgument: {fileID: 2362027772340485323}
-          m_ObjectArgumentAssemblyTypeName: Damageable, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -595,6 +995,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExplosionEffect: {fileID: 2362027773779143700}
+  m_TankParts: []
+  m_InpulseTime: 2
 --- !u!114 &6224011684209733206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,6 +1027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Respawner: {fileID: 0}
   m_TankHealth: {fileID: 6224011684209733206}
+  m_StartRespawnCount: 3
 --- !u!1 &7894403138453790991
 GameObject:
   m_ObjectHideFlags: 0

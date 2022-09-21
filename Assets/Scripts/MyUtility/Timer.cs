@@ -10,6 +10,7 @@ public class Timer
 {
     // Œo‰ßŠÔ
     private float m_CurrentTime = 0.0f;
+    public float CurrentTime { get { return m_CurrentTime; } }
 
     // –Ú•WŠÔ
     private float m_EndTime = 0.0f;

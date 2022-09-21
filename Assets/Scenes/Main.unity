@@ -242,7 +242,7 @@ Transform:
   - {fileID: 1521640160}
   - {fileID: 126244551}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &89010988
 MonoBehaviour:
@@ -433,29 +433,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 970587991}
     m_Modifications:
-    - target: {fileID: 1020790528, guid: c12f8902389dedd49bcfe928d9472aef, type: 3}
-      propertyPath: m_Name
-      value: ShellParent
-      objectReference: {fileID: 0}
     - target: {fileID: 2362027772340485319, guid: c12f8902389dedd49bcfe928d9472aef,
         type: 3}
       propertyPath: selfShellLayer
       value: EnemyShell
-      objectReference: {fileID: 0}
-    - target: {fileID: 2362027772340485323, guid: c12f8902389dedd49bcfe928d9472aef,
-        type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2362027772340485323, guid: c12f8902389dedd49bcfe928d9472aef,
-        type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2362027772340485323, guid: c12f8902389dedd49bcfe928d9472aef,
-        type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2362027772340485326, guid: c12f8902389dedd49bcfe928d9472aef,
         type: 3}
@@ -532,22 +513,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8836035540056036578, guid: c12f8902389dedd49bcfe928d9472aef,
-        type: 3}
-      propertyPath: m_ExplosionEffect
-      value: 
-      objectReference: {fileID: 266407047}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c12f8902389dedd49bcfe928d9472aef, type: 3}
 --- !u!4 &266407046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8783568921032775922, guid: c12f8902389dedd49bcfe928d9472aef,
-    type: 3}
-  m_PrefabInstance: {fileID: 266407045}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &266407047 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2362027773779143700, guid: c12f8902389dedd49bcfe928d9472aef,
     type: 3}
   m_PrefabInstance: {fileID: 266407045}
   m_PrefabAsset: {fileID: 0}
@@ -580,7 +550,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &411614493 stripped
 Transform:
@@ -619,7 +589,7 @@ Transform:
   m_Children:
   - {fileID: 2362027772340485313}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &447691516
 MonoBehaviour:
@@ -845,7 +815,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &922533050 stripped
 Transform:
@@ -928,7 +898,7 @@ Transform:
   m_Children:
   - {fileID: 266407046}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1082418065
 GameObject:
@@ -959,7 +929,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1086833419
 GameObject:
@@ -1027,7 +997,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1165578718
 GameObject:
@@ -1712,7 +1682,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1922014716
 GameObject:
@@ -1807,7 +1777,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1994,14 +1964,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998349308}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.87, y: 2.7, z: 0.83}
+  m_LocalRotation: {x: 0.1572101, y: 0, z: 0, w: 0.98756516}
+  m_LocalPosition: {x: 4.87, y: 6.24, z: -3.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 18.09, y: 0, z: 0}
 --- !u!114 &1998349312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2464,21 +2434,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 447691515}
     m_Modifications:
-    - target: {fileID: 2362027772340485323, guid: c12f8902389dedd49bcfe928d9472aef,
-        type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2362027772340485323, guid: c12f8902389dedd49bcfe928d9472aef,
-        type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2362027772340485323, guid: c12f8902389dedd49bcfe928d9472aef,
-        type: 3}
-      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 2362027772340485326, guid: c12f8902389dedd49bcfe928d9472aef,
         type: 3}
       propertyPath: m_Respawner
