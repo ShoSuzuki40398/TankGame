@@ -77,4 +77,24 @@ public static class GameObjectExtention
             GameObject.Destroy(child.gameObject);
         }
     }
+
+    /// <summary>
+    /// ゲームオブジェクト活性化
+    /// </summary>
+    /// <param name="self"></param>
+    public static void Enable(this GameObject self)
+    {
+        self.SetActive(true);
+    }
+
+
+    /// <summary>
+    /// ゲームオブジェクト非活性化
+    /// </summary>
+    /// <param name="self"></param>
+    public static void Disable(this GameObject self)
+    {
+        self.SetActive(false);
+    }
+
 }
