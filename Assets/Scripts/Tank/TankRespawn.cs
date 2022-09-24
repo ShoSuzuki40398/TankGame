@@ -44,8 +44,12 @@ public class TankRespawn : MonoBehaviour
         transform.position = respawnPoint.position;
         transform.rotation = respawnPoint.rotation;
 
+        // 体力設定
         damageable.ResetHealth();
         m_TankHealth.HPChange(damageable.CurrentHealth);
 
+        // ※リスポーンする時にリスポーン前の座標に一瞬HPバーが表示される不具合がある
+        // 　原因がよく分からないので暫定的に少しだけ遅延をかけてます
+        this.Delay(0.15f,()=> m_TankHealth.ShowGauge());
     }
 }

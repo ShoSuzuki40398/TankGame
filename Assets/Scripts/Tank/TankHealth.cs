@@ -55,6 +55,9 @@ public class TankHealth : MonoBehaviour
         UpdateViewPosition();
     }
 
+    /// <summary>
+    /// HPバー表示位置更新
+    /// </summary>
     private void UpdateViewPosition()
     {
         Vector3 pos = tankTransform.position + m_ViewOffset;
@@ -77,5 +80,21 @@ public class TankHealth : MonoBehaviour
     public void HPChange(float health)
     {
         m_HPGaugeView.SetHP(health);
+    }
+
+    /// <summary>
+    /// ゲージ表示
+    /// </summary>
+    public void ShowGauge()
+    {
+        m_HPGaugeView.gameObject.Enable();
+    }
+
+    /// <summary>
+    /// ゲージ非表示
+    /// </summary>
+    public void HideGauge()
+    {
+        m_HPGaugeView.gameObject.Disable();
     }
 }
