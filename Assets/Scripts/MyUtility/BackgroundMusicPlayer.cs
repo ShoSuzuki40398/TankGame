@@ -58,47 +58,80 @@ public class BackgroundMusicPlayer : SingletonMonoBehaviour<BackgroundMusicPlaye
         m_MusicAudioSource.clip = clip;
     }
 
+    /// <summary>
+    /// BGM再生
+    /// </summary>
     public void Play()
     {
         PlayJustMusic();
     }
 
-    public void PlayJustMusic()
+    /// <summary>
+    /// 最初からBGN再生
+    /// </summary>
+    private void PlayJustMusic()
     {
         m_MusicAudioSource.time = 0f;
         m_MusicAudioSource.Play();
     }
 
+    /// <summary>
+    /// BGM停止
+    /// </summary>
     public void Stop()
     {
         StopJustMusic();
     }
 
-    public void StopJustMusic()
+    /// <summary>
+    /// BGM停止
+    /// </summary>
+    private void StopJustMusic()
     {
         m_MusicAudioSource.Stop();
     }
 
+    /// <summary>
+    /// ミュート
+    /// </summary>
     public void Mute()
     {
         MuteJustMusic();
     }
 
-    public void MuteJustMusic()
+
+    /// <summary>
+    /// ミュート
+    /// </summary>
+    private void MuteJustMusic()
     {
         m_MusicAudioSource.volume = 0f;
     }
 
+
+    /// <summary>
+    /// ミュート解除
+    /// </summary>
     public void Unmute()
     {
         UnmuteJustMustic();
     }
 
+    /// <summary>
+    /// ミュート解除
+    /// </summary>
     public void UnmuteJustMustic()
     {
         m_MusicAudioSource.volume = bgmVolume;
     }
 
+    /// <summary>
+    /// 徐々に音量変更
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="finalVolume"></param>
+    /// <param name="fadeTime"></param>
+    /// <returns></returns>
     protected IEnumerator VolumeFade(AudioSource source, float finalVolume, float fadeTime)
     {
         float volumeDifference = Mathf.Abs(source.volume - finalVolume);
