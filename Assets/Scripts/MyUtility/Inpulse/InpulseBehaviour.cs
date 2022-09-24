@@ -79,7 +79,7 @@ public class InpulseBehaviour : MonoBehaviour
             float y = CurrentInpuluseVelocity.y * m_PowerCurveY.Evaluate(m_ProgressExplodeTime);
             float z = CurrentInpuluseVelocity.z * m_PowerCurveZ.Evaluate(m_ProgressExplodeTime);
 
-            res = new Vector3(x, y, z);
+            res = new Vector3(x, y, z) * m_InpulsePower;
 
             // è’åÇéûä‘åoâﬂ
             m_ProgressExplodeTime += Time.deltaTime;
