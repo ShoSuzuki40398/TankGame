@@ -16,33 +16,40 @@ public class Shell : MonoBehaviour
     // 解放までの時間
     // 長すぎず短すぎずの塩梅を指定してください
     [SerializeField]
-    private float releaseTime = 5.0f;
+    private float m_ReleaseTime = 5.0f;
 
     // 解放タイマー
     // 衝突判定を検知せず自己解放ができない可能性を考慮
     // 指定時間を超えても解放されない場合はタイマーで解放させる
     // 基本的に使用しないが、安全マージンとして実装する
-    private Timer releaseTimer = new Timer();
+    private Timer m_ReleaseTimer = new Timer();
+
+    // 爆発プレハブ
+    [SerializeField]
+    private GameObject m_ExplosionPrefab = null;
 
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        releaseTimer.OnComplete = Release;
+        m_ReleaseTimer.OnComplete = Release;
     }
 
     private void Update()
     {
-        releaseTimer.UpdateWithDeltaTime();
+        m_ReleaseTimer.UpdateWithDeltaTime();
     }
 
     /// <summary>
     /// 初期位置設定
     /// </summary>
-    public void Initialize(Vector3 pos,Quaternion rot)
+    public void Initialize(Vector3 pos, Quaternion rot)
     {
+        // 座標を発射位置に設定
         transform.position = pos;
         transform.rotation = rot;
-        releaseTimer.Awake(releaseTime);
+
+        // 解放タイマー起動
+        m_ReleaseTimer.Awake(m_ReleaseTime);
     }
 
     /// <summary>
@@ -63,10 +70,27 @@ public class Shell : MonoBehaviour
         m_ShellObject.ReturnToPool();
     }
 
+    /// <summary>
+    /// ヒット時エフェクト再生
+    /// DamagerのHitイベントに設定します
+    /// </summary>
+    /// <param name="hit"></param>
+    public void Hit()
+    {
+        // タイマーリセット
+        // 衝突で消えるのでタイマーで消えなくてもよくなる
+        m_ReleaseTimer.Reset();
+
+        // 爆発エフェクト生成
+        Instantiate(m_ExplosionPrefab, transform.position, transform.rotation);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        MyDebug.Log("OnTriggerEnter: " + other.name);
+        Debug.Log("OnTriggerEnter: " + other.name);
+
+        Hit();
+
         Release();
     }
 }

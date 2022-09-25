@@ -13,9 +13,12 @@ public class TankExplosion : MonoBehaviour
     private ParticleSystem m_ExplosionEffect;
 
     // タンクパーツリスト
-    [SerializeField]
     private TankPart[] m_TankParts = null;
-    
+
+    // 爆発SE
+    [SerializeField]
+    private AudioSource m_ExplosionSound;
+
     private void Awake()
     {
         // 戦車パーツ取得
@@ -30,8 +33,14 @@ public class TankExplosion : MonoBehaviour
         if (m_ExplosionEffect == null)
             return;
 
+        if (m_ExplosionSound == null)
+            return;
+
         // エフェクト再生
         m_ExplosionEffect.Play();
+
+        // 爆発SE再生
+        m_ExplosionSound.Play();
 
         // パーツ吹っ飛ぶ
         foreach(var part in m_TankParts)

@@ -13,6 +13,9 @@ public class TankShooting : MonoBehaviour
     [SerializeField]
     private AudioSource m_FireSound;        // 射撃音
 
+    [SerializeField]
+    private float m_FireInterval = 1.0f;    // 再装填時間
+
     private bool m_IsFire = true;           // 発射可能フラグ
     public float m_MinLaunchForce = 15f;        // The force given to the shell if the fire button is not held.
     public float m_MaxLaunchForce = 30f;        // The force given to the shell if the fire button is held for the max charge time.
@@ -24,7 +27,7 @@ public class TankShooting : MonoBehaviour
 
     // 自身の砲弾レイヤー
     [SerializeField]
-    private string selfShellLayer;
+    private string m_SelfShellLayer;
 
 
     // Start is called before the first frame update
@@ -47,7 +50,7 @@ public class TankShooting : MonoBehaviour
         // 弾を生成し座標と方向を設定
         ShellObject shellObj = m_ShellPool.Pop();
         shellObj.shell.Initialize(m_BulletSpawnPoint.position,m_BulletSpawnPoint.rotation);
-        shellObj.shell.SetLayer(selfShellLayer);
+        shellObj.shell.SetLayer(m_SelfShellLayer);
         return shellObj;
     }
 
@@ -58,16 +61,13 @@ public class TankShooting : MonoBehaviour
     {
         if (!CheckSpawnShell())
             return;
-        MyDebug.Log("発射");
-        // Create an instance of the shell and store a reference to it's rigidbody.
+        
         ShellObject shellObj = SpawnShell();
         Rigidbody shellRigidbody = shellObj.shell.m_Rigidbody;
-        // Set the shell's velocity to the launch force in the fire position's forward direction.
         shellRigidbody.velocity = m_CurrentLaunchForce * m_BulletSpawnPoint.forward;
 
         // Change the clip to the firing clip and play it.
-        //m_ShootingAudio.clip = m_FireClip;
-        //m_ShootingAudio.Play();
+        m_FireSound.Play();
 
         // Reset the launch force.  This is a precaution in case of missing button events.
         m_CurrentLaunchForce = m_MinLaunchForce;
@@ -85,7 +85,7 @@ public class TankShooting : MonoBehaviour
     /// <returns></returns>
     private IEnumerator RecavShell()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(m_FireInterval);
 
         m_IsFire = true;
     }
