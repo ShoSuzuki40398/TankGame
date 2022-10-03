@@ -16,6 +16,10 @@ public class TankMovement : MonoBehaviour
     [SerializeField, Tooltip("回転速度")]
     private float m_TurnSpeed = 180f;
 
+    // 土埃エフェクト
+    [SerializeField]
+    private List<ParticleSystem> m_DustTrails = new List<ParticleSystem>();
+
     // 1フレームの速度
     public Vector3 Velocity { get; protected set; }
 
@@ -82,5 +86,27 @@ public class TankMovement : MonoBehaviour
     {
         float turn = speedScale * m_TurnSpeed * Time.deltaTime;
         m_NextRotate = Quaternion.Euler(0, turn, 0).normalized;
+    }
+
+    /// <summary>
+    /// 走行エフェクト表示
+    /// </summary>
+    public void EffectEnable()
+    {
+        foreach (var eff in m_DustTrails)
+        {
+            eff.gameObject.Enable();
+        }
+    }
+
+    /// <summary>
+    /// 走行エフェクト非表示
+    /// </summary>
+    public void EffectDisable()
+    {
+        foreach (var eff in m_DustTrails)
+        {
+            eff.gameObject.Disable();
+        }
     }
 }

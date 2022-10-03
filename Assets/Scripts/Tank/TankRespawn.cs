@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// 戦車リスポーン制御
@@ -20,7 +21,15 @@ public class TankRespawn : MonoBehaviour
     // リスポーン開始までの時間
     [SerializeField]
     private float m_StartRespawnCount = 2.5f;
-    
+
+    // リスポーン時イベントの遅延時間
+    // リスポーンして即UI等を再表示すると
+    // リスポーン前の座標にチラつくので一瞬だけ遅延かけます
+    private const float k_EventDelayTime = 0.15f;
+
+    // リスポーン時のイベント
+    public UnityEvent OnRespawnEvent;
+        
     /// <summary>
     /// リスポーン開始
     /// </summary>
@@ -50,6 +59,15 @@ public class TankRespawn : MonoBehaviour
 
         // ※リスポーンする時にリスポーン前の座標に一瞬HPバーが表示される不具合がある
         // 　原因がよく分からないので暫定的に少しだけ遅延をかけてます
-        this.Delay(0.15f,()=> m_TankHealth.ShowGauge());
+        this.Delay(k_EventDelayTime, ()=> ExecuteRepawnEvent());
+    }
+
+    /// <summary>
+    /// リスポーン時イベント実行
+    /// </summary>
+    private void ExecuteRepawnEvent()
+    {
+        m_TankHealth.ShowGauge();
+        OnRespawnEvent.Invoke();
     }
 }
