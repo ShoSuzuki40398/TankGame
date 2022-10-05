@@ -27,7 +27,11 @@ public class TankRespawn : MonoBehaviour
     // リスポーン前の座標にチラつくので一瞬だけ遅延かけます
     private const float k_EventDelayTime = 0.15f;
 
+    // リスポーン前のイベント
+    public UnityEvent OnPreRepawnEvent;
+
     // リスポーン時のイベント
+    // m_StartRespawnCount分遅延させる
     public UnityEvent OnRespawnEvent;
         
     /// <summary>
@@ -45,6 +49,9 @@ public class TankRespawn : MonoBehaviour
     /// <param name="damageable"></param>
     private void Initialize(Damager damager, Damageable damageable)
     {
+        // リスポーン前イベント
+        PreExecuteRepawnEvent();
+
         // 死んだ場所をリスポーン制御に送り、リスポーン位置を取得する
         Vector3 pos = transform.position;
         Transform respawnPoint = m_Respawner.GetRespawnPoint(pos);
@@ -57,9 +64,18 @@ public class TankRespawn : MonoBehaviour
         damageable.ResetHealth();
         m_TankHealth.HPChange(damageable.CurrentHealth);
 
+
         // ※リスポーンする時にリスポーン前の座標に一瞬HPバーが表示される不具合がある
         // 　原因がよく分からないので暫定的に少しだけ遅延をかけてます
         this.Delay(k_EventDelayTime, ()=> ExecuteRepawnEvent());
+    }
+
+    /// <summary>
+    /// リスポーン前イベント実行
+    /// </summary>
+    private void PreExecuteRepawnEvent()
+    {
+        OnPreRepawnEvent?.Invoke();
     }
 
     /// <summary>
@@ -68,6 +84,6 @@ public class TankRespawn : MonoBehaviour
     private void ExecuteRepawnEvent()
     {
         m_TankHealth.ShowGauge();
-        OnRespawnEvent.Invoke();
+        OnRespawnEvent?.Invoke();
     }
 }
