@@ -29,7 +29,6 @@ public class TankShooting : MonoBehaviour
     [SerializeField]
     private string m_SelfShellLayer;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +44,12 @@ public class TankShooting : MonoBehaviour
         return m_IsFire;
     }
 
+    /// <summary>
+    /// 砲弾生成
+    /// プレハブから生成し、衝突判定のためにプレイヤーor敵のどちらから発射されたかを判別するため
+    /// レイヤーを設定する
+    /// </summary>
+    /// <returns></returns>
     private ShellObject SpawnShell()
     {
         // 弾を生成し座標と方向を設定

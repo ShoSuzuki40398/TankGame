@@ -20,6 +20,11 @@ public class TankMovement : MonoBehaviour
     [SerializeField]
     private List<ParticleSystem> m_DustTrails = new List<ParticleSystem>();
 
+    // エンジン音
+    // 移動している時だけ再生するようにする
+    [SerializeField]
+    private AudioSource m_EngineSound;
+
     // 1フレームの速度
     public Vector3 Velocity { get; protected set; }
 
@@ -44,6 +49,8 @@ public class TankMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        EngineSoundUpdate();
+
         // 座標と回転更新
         PositionUpdate();
         RotationUpdate();
@@ -89,6 +96,22 @@ public class TankMovement : MonoBehaviour
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    private void EngineSoundUpdate()
+    {
+        if(Mathf.Approximately(m_NextMovement.magnitude,0))
+        {
+            m_EngineSound.Stop();
+            return;
+        }
+
+        if(!m_EngineSound.isPlaying)
+            m_EngineSound.Play();
+        
+    }
+
+    /// <summary>
     /// 走行エフェクト表示
     /// </summary>
     public void EffectEnable()
@@ -104,6 +127,7 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     public void EffectDisable()
     {
+        m_EngineSound.Stop();
         foreach (var eff in m_DustTrails)
         {
             eff.gameObject.Disable();

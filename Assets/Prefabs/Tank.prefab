@@ -10440,9 +10440,9 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d7ca9fb5aa30155449192b23d7fb3336, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -10451,7 +10451,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -10732,6 +10732,7 @@ MonoBehaviour:
   m_DustTrails:
   - {fileID: 8817221100476115093}
   - {fileID: 1105857409306790969}
+  m_EngineSound: {fileID: 5276281908285297633}
 --- !u!136 &2362027772340485318
 CapsuleCollider:
   m_ObjectHideFlags: 0
