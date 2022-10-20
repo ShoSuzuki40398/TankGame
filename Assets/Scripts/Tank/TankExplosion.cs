@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TransformExtension;
+using Cinemachine;
 
 /// <summary>
 /// 戦車の爆発演出制御
@@ -18,6 +18,10 @@ public class TankExplosion : MonoBehaviour
     // 爆発SE
     [SerializeField]
     private AudioSource m_ExplosionSound;
+
+    // カメラ振動通知元
+    [SerializeField]
+    private CinemachineImpulseSource m_CinemachineImpulseSource;
 
     private void Awake()
     {
@@ -41,6 +45,9 @@ public class TankExplosion : MonoBehaviour
 
         // 爆発SE再生
         m_ExplosionSound.Play();
+
+        // カメラを振動させる
+        m_CinemachineImpulseSource.GenerateImpulse();
 
         // パーツ吹っ飛ぶ
         foreach(var part in m_TankParts)
