@@ -34,21 +34,55 @@ public static class MonoBehaviourExtention
         action();
     }
 
+    /// <summary>
+    /// Actionの遅延実行
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="waitTime">遅延秒数</param>
+    /// <param name="action">実行イベント</param>
     public static void Delay(this MonoBehaviour self, float waitTime, Action action)
     {
         self.StartCoroutine(DelayMethod(waitTime,action));
     }
 
+    /// <summary>
+    /// Actionの遅延実行
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="delayFrameCount">遅延フレーム数</param>
+    /// <param name="action">実行イベント</param>
     public static void Delay(this MonoBehaviour self, int delayFrameCount, Action action)
     {
         self.StartCoroutine(DelayMethod(delayFrameCount, action));
     }
 
+    /// <summary>
+    /// 即時イベントをすべて実行する
+    /// </summary>
+    /// <param name="self"></param>
     public static void AllEventFire(this ICollection<UnityEngine.Events.UnityAction> self)
     {
         foreach (var act in self)
         {
             act();
         }
+    }
+
+    /// <summary>
+    /// コンポーネントを有効にする
+    /// </summary>
+    /// <param name="self"></param>
+    public static void Enable(this MonoBehaviour self)
+    {
+        self.enabled = true;
+    }
+
+    /// <summary>
+    /// コンポーネントを無効にする
+    /// </summary>
+    /// <param name="self"></param>
+    public static void Disable(this MonoBehaviour self)
+    {
+        self.enabled = false;
     }
 }
