@@ -34,6 +34,10 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     private PlayableDirector m_SceneBeginPerformancePlayableDirector;
     public PlayableDirector SceneBeginPerformancePlayableDirector { get { return m_SceneBeginPerformancePlayableDirector; } }
 
+    // 入力制御
+    [SerializeField]
+    private PlayerInput m_PlayerInput;
+
 
     // Start is called before the first frame update
     void Start()
@@ -75,11 +79,20 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
 
         public override void Enter()
         {
+            // 入力無効
+            owner.m_PlayerInput.Disable();
+
             Debug.Log("SceneBegin");
             // シーン開始演出を再生する
             // 終了時のイベントはシグナルで設定しておく
             // 次の状態（戦闘開始状態）への遷移は終了時イベントで行う
             owner.SceneBeginPerformancePlayableDirector.Play();
+        }
+
+        public override void Exit()
+        {
+            // 入力有効
+            owner.m_PlayerInput.Enable();
         }
     }
 

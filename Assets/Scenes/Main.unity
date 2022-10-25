@@ -1091,7 +1091,7 @@ MonoBehaviour:
     m_AmplitudeGain: 1
     m_FrequencyGain: 1
     m_Duration: 1
-    m_NoiseOffsets: {x: 0, y: 0, z: 0}
+    m_NoiseOffsets: {x: -593.1737, y: 247.5878, z: -989.0327}
 --- !u!4 &645021775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7931538818402284858, guid: 0f82d31b90e91994d9af7572724a9583,
@@ -2012,7 +2012,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118167417}
-  m_LocalRotation: {x: 0.21547619, y: 0.16122839, z: -0.03609703, w: 0.9624305}
+  m_LocalRotation: {x: 0.2154762, y: 0.16122837, z: -0.036097027, w: 0.9624305}
   m_LocalPosition: {x: 5.5192733, y: 2.21, z: 15.207933}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4304,9 +4304,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7594681cbf37d2c41b6d345982b8b374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebug: 0
   m_BgmPlayer: {fileID: 1381228296}
   m_SceneBeginPerformancePlayableDirector: {fileID: 1877978380}
+  m_PlayerInput: {fileID: 1805747556}
 --- !u!114 &380067262056541640
 MonoBehaviour:
   m_ObjectHideFlags: 0
