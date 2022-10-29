@@ -30,12 +30,10 @@ public class TextChangeReceiver : MonoBehaviour, INotificationReceiver
     /// <param name="context"></param>
     public void OnNotify(Playable origin, INotification notification, object context)
     {
-        Debug.Log("通知");
         var marker = notification as TextChangeMarker;
         if (marker == null)
             return;
 
-        Debug.Log("マーカー整合");
         // テキスト変更
         // 変更するテキストはTimeline上に配置したTextChangeMarkerインスペクターにて設定
         this.ChangeText(marker.Text);

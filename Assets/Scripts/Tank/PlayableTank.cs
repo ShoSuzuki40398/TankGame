@@ -59,7 +59,6 @@ public class PlayableTank : MonoBehaviour,IPlayerInput
         // release
         if (context.action.WasPerformedThisFrame())
         {
-            MyDebug.Log("ŽËŒ‚ƒ{ƒ^ƒ“‰Ÿ‚µ‚½");
             m_TankShooting.Fire();
         }
     }
