@@ -30,26 +30,23 @@ public class TankMovement : MonoBehaviour
 
     // 移動用リジッドボディ
     private Rigidbody m_Rigidbody;
-    private Vector3 m_PreviousPosition; // 前座標
-    private Vector3 m_CurrentPosition;  // 現在座標
-    private Vector3 m_NextMovement;     // 移動量
-
-    private Vector3 m_PreviousRotation; // 前回転
-    private Vector3 m_CurrentRotation;  // 現在回転
-    private Quaternion m_NextRotate;       // 回転量
+    // 移動量
+    private Vector3 m_NextMovement;
+    // 回転量
+    private Quaternion m_NextRotate = Quaternion.identity;       
 
 
     private void Awake()
     {
         // アタッチ済みコンポーネント取得
         m_Rigidbody = GetComponent<Rigidbody>();
-        if (m_Rigidbody != null)
-            m_CurrentPosition = m_PreviousPosition = m_Rigidbody.position;
+
     }
 
     private void FixedUpdate()
     {
         EngineSoundUpdate();
+
 
         // 座標と回転更新
         PositionUpdate();
