@@ -30,9 +30,12 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     public BackgroundMusicPlayer BgmPlayer { get { return m_BgmPlayer; } }
 
     // シーン演出用タイムライン制御
+    // シーン開始時演出
     [SerializeField]
-    private PlayableDirector m_SceneBeginPerformancePlayableDirector;
-    public PlayableDirector SceneBeginPerformancePlayableDirector { get { return m_SceneBeginPerformancePlayableDirector; } }
+    private ScenePerformanceController m_ScenePerformanceController;
+    public ScenePerformanceController ScenePerformanceController { get { return m_ScenePerformanceController; } }
+
+    // 戦闘終了時演出
 
     // 入力制御
     [SerializeField]
@@ -80,13 +83,14 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
         public override void Enter()
         {
             // 入力無効
-            owner.m_PlayerInput.Disable();
+            //owner.m_PlayerInput.Disable();
 
             Debug.Log("SceneBegin");
             // シーン開始演出を再生する
             // 終了時のイベントはシグナルで設定しておく
             // 次の状態（戦闘開始状態）への遷移は終了時イベントで行う
-            owner.SceneBeginPerformancePlayableDirector.Play();
+            //owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Scene_Start);
+            owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Battle_End);
         }
 
         public override void Exit()
