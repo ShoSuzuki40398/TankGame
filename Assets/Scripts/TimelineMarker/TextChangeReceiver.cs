@@ -19,7 +19,6 @@ public class TextChangeReceiver : MonoBehaviour, INotificationReceiver
     public void ChangeText(string text)
     {
         m_TextMeshProUGUI.text = text;
-        Debug.Log("テキスト変更:" + text);
     }
 
     /// <summary>
