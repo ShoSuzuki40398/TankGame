@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
+using Cinemachine;
 
 /// <summary>
 /// シーン状態の遷移制御を行う
@@ -30,12 +31,18 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     public BackgroundMusicPlayer BgmPlayer { get { return m_BgmPlayer; } }
 
     // シーン演出用タイムライン制御
-    // シーン開始時演出
     [SerializeField]
     private ScenePerformanceController m_ScenePerformanceController;
     public ScenePerformanceController ScenePerformanceController { get { return m_ScenePerformanceController; } }
 
-    // 戦闘終了時演出
+    [SerializeField]
+    private CinemachineVirtualCamera m_ResultCamera;
+
+    [SerializeField]
+    private GameObject playerTank;
+
+    [SerializeField]
+    private GameObject enemyTank;
 
     // 入力制御
     [SerializeField]
@@ -45,7 +52,10 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     // Start is called before the first frame update
     void Start()
     {
-        // 
+        m_ResultCamera.Follow = playerTank.transform;
+        m_ResultCamera.LookAt = playerTank.transform;
+
+        // 状態登録
         m_StateMachine.AddState(Scene_State.Scene_Begin, new SceneBegin(this));
         m_StateMachine.AddState(Scene_State.Battle_Start, new BattleStart(this));
         m_StateMachine.AddState(Scene_State.Battle, new Battle(this));
@@ -89,8 +99,9 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
             // シーン開始演出を再生する
             // 終了時のイベントはシグナルで設定しておく
             // 次の状態（戦闘開始状態）への遷移は終了時イベントで行う
-            //owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Scene_Start);
-            owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Battle_End);
+            owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Scene_Start);
+
+            owner.Delay(6.0f, () => owner.StateMachine.ChangeState(Scene_State.Battle_Finish));
         }
 
         public override void Exit()
@@ -135,6 +146,7 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
         public override void Enter()
         {
             Debug.Log("BattleFinish");
+            owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Battle_End);
         }
     }
     /// <summary>
