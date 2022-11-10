@@ -72,7 +72,7 @@ public static class MonoBehaviourExtention
     /// コンポーネントを有効にする
     /// </summary>
     /// <param name="self"></param>
-    public static void Enable(this MonoBehaviour self)
+    public static void Enable(this Behaviour self)
     {
         self.enabled = true;
     }
@@ -81,7 +81,7 @@ public static class MonoBehaviourExtention
     /// コンポーネントを無効にする
     /// </summary>
     /// <param name="self"></param>
-    public static void Disable(this MonoBehaviour self)
+    public static void Disable(this Behaviour self)
     {
         self.enabled = false;
     }
