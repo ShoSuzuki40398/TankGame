@@ -35,26 +35,25 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     private ScenePerformanceController m_ScenePerformanceController;
     public ScenePerformanceController ScenePerformanceController { get { return m_ScenePerformanceController; } }
 
-    [SerializeField]
-    private CinemachineVirtualCamera m_ResultCamera;
-
-    [SerializeField]
-    private GameObject playerTank;
-
-    [SerializeField]
-    private GameObject enemyTank;
-
     // 入力制御
     [SerializeField]
     private PlayerInput m_PlayerInput;
 
+    // インゲームキャンバス
+    [SerializeField]
+    private Canvas m_IngameCanvas;
+
+    // リザルトキャンバス
+    [SerializeField]
+    private Canvas m_ResultCanvas;
+    
+    // リザルト制御
+    [SerializeField]
+    private ResultBehaviour m_ResultBehaviour;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_ResultCamera.Follow = playerTank.transform;
-        m_ResultCamera.LookAt = playerTank.transform;
-
         // 状態登録
         m_StateMachine.AddState(Scene_State.Scene_Begin, new SceneBegin(this));
         m_StateMachine.AddState(Scene_State.Battle_Start, new BattleStart(this));
@@ -64,7 +63,6 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
         m_StateMachine.AddState(Scene_State.Scene_End, new SceneEnd(this));
 
         m_StateMachine.ChangeState(Scene_State.Scene_Begin);
-        
     }
 
     // Update is called once per frame
@@ -84,6 +82,29 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     }
 
     /// <summary>
+    /// シーン開始時演出の終了時イベント
+    /// </summary>
+    /// <param name="aDirector"></param>
+    public void FinishBattleEndPerformance()
+    {
+        // 戦闘結果状態に遷移する
+        m_StateMachine.ChangeState(Scene_State.Battle_Result);
+    }
+
+    /// <summary>
+    /// シーン初期化
+    /// </summary>
+    private void SceneInitialize()
+    {
+        // 入力無効
+        m_PlayerInput.Disable();
+
+        // 各キャンバス非表示
+        m_IngameCanvas.Disable();
+        m_ResultCanvas.Disable();
+    }
+
+    /// <summary>
     /// シーン開始状態
     /// </summary>
     private class SceneBegin : State<MainSceneController>
@@ -92,16 +113,17 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
 
         public override void Enter()
         {
-            // 入力無効
-            //owner.m_PlayerInput.Disable();
-
             Debug.Log("SceneBegin");
+
+            // シーン初期化
+            owner.SceneInitialize();
+
             // シーン開始演出を再生する
             // 終了時のイベントはシグナルで設定しておく
-            // 次の状態（戦闘開始状態）への遷移は終了時イベントで行う
+            // 次の状態（戦闘開始状態）への遷移は終了時イベントで行う(FinishSceneBeginPerformance)
             owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Scene_Start);
 
-            owner.Delay(6.0f, () => owner.StateMachine.ChangeState(Scene_State.Battle_Finish));
+            owner.Delay(7.0f, () => owner.StateMachine.ChangeState(Scene_State.Battle_Finish));
         }
 
         public override void Exit()
@@ -121,7 +143,11 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
         public override void Enter()
         {
             Debug.Log("BattleStart");
+            // BGM再生
             owner.BgmPlayer.Play();
+
+            // インゲームキャンバス表示
+            owner.m_IngameCanvas.Enable();
         }
     }
     /// <summary>
@@ -146,6 +172,18 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
         public override void Enter()
         {
             Debug.Log("BattleFinish");
+            // 入力無効
+            owner.m_PlayerInput.Disable();
+
+            // インゲームキャンバス非表示
+            owner.m_IngameCanvas.Disable();
+
+            // リザルト前準備
+            owner.m_ResultBehaviour.ResultSetUp();
+
+            // 戦闘終了演出を再生する
+            // 終了時のイベントはシグナルで設定しておく
+            // 次の状態（戦闘結果状態）への遷移は終了時イベントで行う(FinishBattleEndPerformance)
             owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Battle_End);
         }
     }
@@ -159,6 +197,11 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
         public override void Enter()
         {
             Debug.Log("BattleResult");
+            // リザルトキャンバス表示
+            owner.m_ResultCanvas.Enable();
+
+            // リザルト演出再生
+            owner.m_ResultBehaviour.ResultExecute();
         }
     }
     /// <summary>
@@ -171,6 +214,9 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
         public override void Enter()
         {
             Debug.Log("SceneEnd");
+
+            // リザルトキャンバス非表示
+            owner.m_ResultCanvas.Enable();
         }
     }
 }
