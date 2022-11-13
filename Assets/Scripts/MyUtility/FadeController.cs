@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+/// <summary>
+/// 画面のフェードイン・アウトを制御する
+/// 
+/// </summary>
 public class FadeController : SingletonMonoBehaviour<FadeController>
 {
     enum FADE_STATE
@@ -15,23 +19,61 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
     FADE_STATE state = FADE_STATE.IDLE;
 
     // フェード用パネル
-    private Image fadePanel;
+    [SerializeField]
+    protected Image m_FadePanel;
+
+    // 親キャンバス
+    [SerializeField]
+    protected GameObject m_ParentCanvas;
+
+    // フェードインにかける時間
+    [SerializeField]
+    protected float m_FadeInTime = 1.0f;
+
+    // フェードアウトにかける時間
+    [SerializeField]
+    protected float m_FadeOutTime = 1.0f;
+
+    /// <summary>
+    /// 起動時処理
+    /// </summary>
+    protected override void ActionInAwake()
+    {
+        // フェード用パネルが、起動時にインスペクターから設定していない場合は自動で作成
+        CreateFadePanel();
+    }
 
     /// <summary>
     /// フェード用パネル作成
+    /// ※作成済みの場合は何もしないため、実行中に見た目が変わるなどは想定していない
     /// </summary>
     private void CreateFadePanel()
     {
-        var canvas = GameObject.Find("Canvas");
+        if (m_FadePanel != null)
+            return;
 
+        // 自動で作成する場合は最低限の処理になります
+        // (親子設定、色、サイズ、座標)
+        var canvas = m_ParentCanvas;
+        if(canvas == null)
+            canvas = GameObject.Find("FadeCanvas");
+        
+        // インスタンス作成
         var obj = new GameObject("FadePanel");
         var rect = obj.AddComponent<RectTransform>();
-        fadePanel = obj.AddComponent<Image>();
-        fadePanel.color = Color.black;
+
+        // 色
+        m_FadePanel = obj.AddComponent<Image>();
+        m_FadePanel.color = Color.black;
+
+        //親子設定
         rect.SetParent(canvas.transform);
 
+        // サイズ
         rect.anchorMin = Vector2.zero;
         rect.anchorMax = Vector2.one;
+
+        // 座標
         rect.anchoredPosition = Vector2.zero;
 
         SetAlpha(0.0f);
@@ -47,10 +89,11 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
     /// <returns></returns>
     private IEnumerator Fade(float fadeTime, float startAlpha, float endAlpha, Action action = null)
     {
-        fadePanel.gameObject.SetActive(true);
+        m_FadePanel.gameObject.SetActive(true);
 
         float elapsedTime = 0.0f;
 
+        // フェード開始
         while (elapsedTime < fadeTime)
         {
             elapsedTime += Time.unscaledDeltaTime;
@@ -59,16 +102,17 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             yield return new WaitForEndOfFrame();
         }
 
-        if(action != null)
+        // フェード後のイベント発火
+        action?.Invoke();
+
+        // フェードインの場合は非アクティブにする
+        // マウス座標等でレイキャストを行う場合、フェードパネルが前面にあると邪魔になるため
+        if (state == FADE_STATE.FADEIN)
         {
-            action();
+            m_FadePanel.gameObject.SetActive(false);
         }
 
-        if(state == FADE_STATE.FADEIN)
-        {
-            fadePanel.gameObject.SetActive(false);
-        }
-
+        // 待機状態に戻しておく
         state = FADE_STATE.IDLE;
     }
 
@@ -78,16 +122,16 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
     /// <param name="a"></param>
     private void SetAlpha(float a)
     {
-        var color = fadePanel.color;
+        var color = m_FadePanel.color;
         color.a = a;
-        fadePanel.color = color;
+        m_FadePanel.color = color;
     }
 
     /// <summary>
     /// フェードイン開始
     /// </summary>
     /// <param name="time"></param>
-    public void FadeIn(float time, Action action = null)
+    public void FadeIn(Action action = null)
     {
         // フェード中は無効
         if (state != FADE_STATE.IDLE)
@@ -95,21 +139,21 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             return;
         }
 
-        if (fadePanel == null)
+        if (m_FadePanel == null)
         {
             CreateFadePanel();
         }
 
         state = FADE_STATE.FADEIN;
 
-        StartCoroutine(Fade(time, 1.0f, 0.0f, action));
+        StartCoroutine(Fade(m_FadeInTime, 1.0f, 0.0f, action));
     }
 
     /// <summary>
     /// フェードアウト開始
     /// </summary>
     /// <param name="time"></param>
-    public void FadeOut(float time, Action action = null)
+    public void FadeOut(Action action = null)
     {
         // フェード中は無効
         if (state != FADE_STATE.IDLE)
@@ -117,13 +161,13 @@ public class FadeController : SingletonMonoBehaviour<FadeController>
             return;
         }
 
-        if (fadePanel == null)
+        if (m_FadePanel == null)
         {
             CreateFadePanel();
         }
 
         state = FADE_STATE.FADEOUT;
 
-        StartCoroutine(Fade(time, 0.0f, 1.0f, action));
+        StartCoroutine(Fade(m_FadeOutTime, 0.0f, 1.0f, action));
     }
 }

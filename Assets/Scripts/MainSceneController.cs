@@ -8,7 +8,7 @@ using Cinemachine;
 /// <summary>
 /// シーン状態の遷移制御を行う
 /// </summary>
-public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
+public class MainSceneController : MonoBehaviour
 {
     //　状態定義キー
     public enum Scene_State
@@ -38,6 +38,14 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     // 入力制御
     [SerializeField]
     private PlayerInput m_PlayerInput;
+    
+    // 入力マップキー
+    private readonly string m_UIActionMapKey = "UI";
+    private readonly string m_PlayerActionMapKey = "Player";
+
+    // UI入力アクションキー
+    private readonly string m_EnterActionKey = "Enter";
+    private InputAction m_EnterAction { get { return m_PlayerInput.currentActionMap[m_EnterActionKey]; } }
 
     // インゲームキャンバス
     [SerializeField]
@@ -50,6 +58,10 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     // リザルト制御
     [SerializeField]
     private ResultBehaviour m_ResultBehaviour;
+
+    // リザルトメニュー
+    [SerializeField]
+    private SelectableObjectGroup m_ResultManuGroup;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +86,6 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     /// <summary>
     /// シーン開始時演出の終了時イベント
     /// </summary>
-    /// <param name="aDirector"></param>
     public void FinishSceneBeginPerformance()
     {
         // 戦闘開始状態に遷移する
@@ -84,7 +95,6 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     /// <summary>
     /// シーン開始時演出の終了時イベント
     /// </summary>
-    /// <param name="aDirector"></param>
     public void FinishBattleEndPerformance()
     {
         // 戦闘結果状態に遷移する
@@ -102,6 +112,42 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
         // 各キャンバス非表示
         m_IngameCanvas.Disable();
         m_ResultCanvas.Disable();
+    }
+
+    private void SceneFinalize()
+    {
+        // 入力無効
+        m_PlayerInput.Disable();
+
+        // 各キャンバス非表示
+        m_IngameCanvas.Disable();
+        m_ResultCanvas.Disable();
+
+        // BGM停止
+        m_BgmPlayer.Stop();
+    }
+
+
+    /// <summary>
+    /// シーンを終了する
+    /// </summary>
+    public void ToSceneEnd()
+    {
+        StateMachine.ChangeState(Scene_State.Scene_End);
+    }
+
+    /// <summary>
+    /// 入力マップ切替
+    /// </summary>
+    /// <param name="key"></param>
+    private void ChangeInputActionMap(string key)
+    {
+        var actionMap = m_PlayerInput.actions.FindActionMap(key);
+
+        if(actionMap != null)
+        {
+            m_PlayerInput.currentActionMap = actionMap;
+        }
     }
 
     /// <summary>
@@ -128,7 +174,8 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
 
         public override void Exit()
         {
-            // 入力有効
+            // 入力を有効にし、プレイヤー操作用の入力に切り替える
+            owner.ChangeInputActionMap(owner.m_PlayerActionMapKey);
             owner.m_PlayerInput.Enable();
         }
     }
@@ -179,6 +226,8 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
             owner.m_IngameCanvas.Disable();
 
             // リザルト前準備
+            // TODO: 勝敗タイプは残機制御から送る
+            owner.m_ResultBehaviour.SetResultType(ResultBehaviour.ResultType.PlayerWin);
             owner.m_ResultBehaviour.ResultSetUp();
 
             // 戦闘終了演出を再生する
@@ -194,14 +243,39 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
     {
         public BattleResult(MainSceneController owner) : base(owner) { }
 
+
         public override void Enter()
         {
             Debug.Log("BattleResult");
             // リザルトキャンバス表示
             owner.m_ResultCanvas.Enable();
 
+            // 入力を有効にし、UI操作用の入力に切り替える
+            owner.ChangeInputActionMap(owner.m_UIActionMapKey);
+            owner.m_PlayerInput.Enable();
+
             // リザルト演出再生
             owner.m_ResultBehaviour.ResultExecute();
+        }
+
+        public override void Execute()
+        {
+            UpdateResultManu();
+        }
+
+        /// <summary>
+        /// リザルトメニュー更新
+        /// </summary>
+        private void UpdateResultManu()
+        {
+            if (owner.m_EnterAction == null)
+                return;
+
+            // 決定
+            if (owner.m_EnterAction.WasPressedThisFrame())
+            {
+                owner.m_ResultManuGroup.DecideElement();
+            }
         }
     }
     /// <summary>
@@ -216,7 +290,10 @@ public class MainSceneController : SingletonMonoBehaviour<MainSceneController>
             Debug.Log("SceneEnd");
 
             // リザルトキャンバス非表示
-            owner.m_ResultCanvas.Enable();
+            owner.SceneFinalize();
+
+            // タイトルバック
+            SceneTransitioner.Instance.TransitionToScene("Title");
         }
     }
 }

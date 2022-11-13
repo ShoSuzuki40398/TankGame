@@ -37,8 +37,15 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
         }
     }
 
+    /// <summary>
+    /// 起動時処理
+    /// 起動時に何か処理を挟みたいときに実装する
+    /// </summary>
+    protected virtual void ActionInAwake() { }
+
     protected virtual void Awake()
     {
+        ActionInAwake();
         DontDestroyOnLoad(gameObject);
     }
 
