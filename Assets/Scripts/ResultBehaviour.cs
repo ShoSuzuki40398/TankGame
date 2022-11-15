@@ -9,6 +9,7 @@ using Cinemachine;
 public class ResultBehaviour : MonoBehaviour, IResult
 {
     // Œ‹‰Ê’è‹`
+    [System.Serializable]
     public enum ResultType
     {
         None,
@@ -87,6 +88,14 @@ public class ResultBehaviour : MonoBehaviour, IResult
     public void SetResultType(ResultType type)
     {
         m_ResultType = type;
+    }
+
+    /// <summary>
+    /// ƒŠƒUƒ‹ƒgİ’è
+    /// </summary>
+    public void SetResultType(int type)
+    {
+        m_ResultType = (ResultType)type;
     }
 
     /// <summary>

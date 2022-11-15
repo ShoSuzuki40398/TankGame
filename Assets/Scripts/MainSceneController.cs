@@ -102,6 +102,15 @@ public class MainSceneController : MonoBehaviour
     }
 
     /// <summary>
+    /// 戦闘終了
+    /// inspectorからTankRemainのUnityEventに設定する
+    /// </summary>
+    public void ToBattleEnd()
+    {
+        m_StateMachine.ChangeState(Scene_State.Battle_Finish);
+    }
+
+    /// <summary>
     /// シーン初期化
     /// </summary>
     private void SceneInitialize()
@@ -169,7 +178,7 @@ public class MainSceneController : MonoBehaviour
             // 次の状態（戦闘開始状態）への遷移は終了時イベントで行う(FinishSceneBeginPerformance)
             owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Scene_Start);
 
-            owner.Delay(7.0f, () => owner.StateMachine.ChangeState(Scene_State.Battle_Finish));
+            //owner.Delay(7.0f, () => owner.StateMachine.ChangeState(Scene_State.Battle_Finish));
         }
 
         public override void Exit()
@@ -226,8 +235,7 @@ public class MainSceneController : MonoBehaviour
             owner.m_IngameCanvas.Disable();
 
             // リザルト前準備
-            // TODO: 勝敗タイプは残機制御から送る
-            owner.m_ResultBehaviour.SetResultType(ResultBehaviour.ResultType.PlayerWin);
+            // 勝敗結果は残機制御から送る
             owner.m_ResultBehaviour.ResultSetUp();
 
             // 戦闘終了演出を再生する
