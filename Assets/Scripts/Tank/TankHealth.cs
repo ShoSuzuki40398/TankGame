@@ -19,7 +19,7 @@ public class TankHealth : MonoBehaviour
 
     // HPゲージを配置するCanvas
     [SerializeField]
-    private Canvas m_HPGaugeViewParent;
+    private Canvas m_TargetCanvas;
 
     // 戦車座標
     // HPゲージを対象の座標に追従させる
@@ -46,7 +46,7 @@ public class TankHealth : MonoBehaviour
     void Start()
     {
         // HPゲージオブジェクトを生成してHPGaugeViewの参照を取得
-        m_HPGaugeView = Instantiate(m_HPGaugeViewPrefab, m_HPGaugeViewParent.transform).GetComponent<HPGaugeView>();
+        m_HPGaugeView = Instantiate(m_HPGaugeViewPrefab, m_TargetCanvas.transform).GetComponent<HPGaugeView>();
         InitializeHPView(m_HPGaugeView);
     }
 
@@ -61,7 +61,7 @@ public class TankHealth : MonoBehaviour
     private void UpdateViewPosition()
     {
         Vector3 pos = tankTransform.position + m_ViewOffset;
-        m_HPGaugeView.transform.position = WorldTo2DTranform.Transform(pos, m_HPGaugeViewParent, Camera.main);
+        m_HPGaugeView.transform.position = WorldTo2DTranform.Transform(pos, m_TargetCanvas, Camera.main);
     }
 
     /// <summary>

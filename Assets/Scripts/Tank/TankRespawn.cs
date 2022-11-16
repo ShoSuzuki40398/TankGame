@@ -83,7 +83,6 @@ public class TankRespawn : MonoBehaviour
     /// </summary>
     private void ExecuteRepawnEvent()
     {
-        m_TankHealth.ShowGauge();
         OnRespawnEvent?.Invoke();
     }
 }
