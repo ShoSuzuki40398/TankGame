@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// Animator経由でイベントを発火させる選択肢オブジェクト
@@ -19,8 +20,9 @@ public class SelectableElementWithAnimator : BaseSelectableElement
     protected readonly string m_Selected    = "Selected";
     protected readonly string m_Disabled    = "Disabled";
 
-    private void Awake()
+    protected new void Awake()
     {
+        base.Awake();
         m_Animator = GetComponent<Animator>();
     }
 
@@ -54,5 +56,11 @@ public class SelectableElementWithAnimator : BaseSelectableElement
     {
         m_Animator.SetTrigger(m_Selected);
         m_SelectedAction?.Invoke();
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        base.OnPointerEnter(eventData);
+        m_HighlightedAction?.Invoke();
     }
 }

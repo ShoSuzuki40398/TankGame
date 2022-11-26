@@ -23,12 +23,40 @@ public class SelectableObjectGroup : MonoBehaviour
     private void Awake()
     {
         m_SelectablePairs = m_Selectables.ToDictionary(ele => ele.gameObject.GetInstanceID());
+        foreach(var ele in m_Selectables)
+        {
+            ele.m_Group = this;
+        }
     }
 
     private void Start()
     {
+        // 識別番号番号割り当て
+        AssignmentIndex();
+
         // 最上位の選択肢を選択した状態から開始
-        SelectElementWithIndex(m_CurrentSelectedElementIndex);
+        SelectElement(m_CurrentSelectedElementIndex);
+    }
+
+    /// <summary>
+    /// 各選択肢に識別IDを設定する
+    /// 最初の選択肢を0とし、昇順で割り当てる
+    /// </summary>
+    private void AssignmentIndex()
+    {
+        foreach (var ele in m_Selectables.Select((value, index) => (value, index)))
+        {
+            ele.value.index = ele.index;
+            ele.value.m_FocusAction += FocusElement;
+        }
+    }
+
+    /// <summary>
+    /// カーソルでフォーカスした時
+    /// </summary>
+    private void FocusElement(int index)
+    {
+        SelectElementWithIndex(index);
     }
 
     /// <summary>
@@ -61,6 +89,10 @@ public class SelectableObjectGroup : MonoBehaviour
     /// <param name="index"></param>
     public void SelectElementWithIndex(int index)
     {
+        // 同値チェック
+        if (m_CurrentSelectedElementIndex == index)
+            return;
+
         SelectElement(index);
     }
 
@@ -93,5 +125,31 @@ public class SelectableObjectGroup : MonoBehaviour
     public void SelectLowerElement(int value = 1)
     {
         SelectElementWithIndex(m_CurrentSelectedElementIndex - value);
+    }
+
+    /// <summary>
+    /// 選択していない選択肢の取得
+    /// </summary>
+    /// <returns></returns>
+    public List<BaseSelectableElement> UnSelectElements()
+    {
+        List<BaseSelectableElement> res = new List<BaseSelectableElement>();
+
+        return m_Selectables.FindAll(ele => ele.index != m_CurrentSelectedElementIndex);
+    }
+
+
+    /// <summary>
+    /// 選択していない選択肢をノーマル状態にする
+    /// </summary>
+    /// <returns></returns>
+    public void UnSelectElementsToNormal()
+    {
+        var elements = UnSelectElements();
+
+        foreach(var ele in elements)
+        {
+            ele.Normal();
+        }
     }
 }
