@@ -125,7 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2780717489357166313}
   m_Layer: 0
-  m_Name: Level Art
+  m_Name: Moc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
