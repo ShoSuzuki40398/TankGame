@@ -39,12 +39,16 @@ public class TankHealth : MonoBehaviour
 
     private void Awake()
     {
+        m_TargetCanvas = GameObject.Find(CommonDefineData.ObjectNameIngameCanvas).GetComponent<Canvas>();
         tankTransform = transform;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        if (m_TargetCanvas == null)
+            return;
+
         // HPゲージオブジェクトを生成してHPGaugeViewの参照を取得
         m_HPGaugeView = Instantiate(m_HPGaugeViewPrefab, m_TargetCanvas.transform).GetComponent<HPGaugeView>();
         InitializeHPView(m_HPGaugeView);
@@ -60,6 +64,9 @@ public class TankHealth : MonoBehaviour
     /// </summary>
     private void UpdateViewPosition()
     {
+        if (m_TargetCanvas == null)
+            return;
+
         Vector3 pos = tankTransform.position + m_ViewOffset;
         m_HPGaugeView.transform.position = WorldTo2DTranform.Transform(pos, m_TargetCanvas, Camera.main);
     }

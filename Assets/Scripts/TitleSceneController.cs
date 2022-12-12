@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// タイトルシーン制御
+/// </summary>
 public sealed class TitleSceneController : MonoBehaviour
 {
     /* References */
@@ -17,23 +20,27 @@ public sealed class TitleSceneController : MonoBehaviour
     private readonly string m_EnterActionKey = "Enter";
     private InputAction enterAction { get { return m_PlayerInput.currentActionMap[m_EnterActionKey]; } }
 
-    private void Awake()
+    private void Start()
     {
-    }
-    
-    public void test()
-    {
-        Debug.Log("Select : " + m_MainManuGroup.currentSelectedElement.index);
+        // インゲーム情報リセット
+        IngameSetting.Instance.ResetSetting();
+
+        // メインメニュー選択可にする
+        m_MainManuGroup.Enable();
     }
 
-    public void decide()
+    /// <summary>
+    /// メインシーンに遷移する
+    /// 遷移する前に、指定したレベルアートの情報をIngameSettingに設定する
+    /// </summary>
+    /// <param name="type"></param>
+    public void TransitionMainScene(int type)
     {
-        Debug.Log("Decide : " + m_MainManuGroup.currentSelectedElement.index);
-    }
+        // レベルアート情報を設定
+        IngameSetting.Instance.SetCurrentLevelArtProperty((LevelArtLoader.LEVEL_ART_TYPE)type);
 
-    public void normal()
-    {
-        Debug.Log("normal : " + m_MainManuGroup.currentSelectedElement.index);
+        // メインシーンに遷移する
+        SceneTransitioner.Instance.TransitionToScene(CommonDefineData.SceneNameMain);
     }
 
     private void Update()
@@ -56,6 +63,7 @@ public sealed class TitleSceneController : MonoBehaviour
         // 決定
         if (enterAction.WasPressedThisFrame())
         {
+            m_MainManuGroup.Disable();
             m_MainManuGroup.DecideElement();
         }
     }

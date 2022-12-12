@@ -42,6 +42,8 @@ public class TankRemain : MonoBehaviour
     private void Awake()
     {
         tankTransform = transform;
+        m_TargetCanvas = GameObject.Find(CommonDefineData.ObjectNameIngameCanvas).GetComponent<Canvas>();
+
         Initialize();
     }
 
@@ -55,6 +57,9 @@ public class TankRemain : MonoBehaviour
     /// </summary>
     private void UpdateViewPosition()
     {
+        if (m_TargetCanvas == null)
+            return;
+
         Vector3 pos = tankTransform.position + m_ViewOffset;
         m_RemainView.transform.position = WorldTo2DTranform.Transform(pos, m_TargetCanvas, Camera.main);
     }
@@ -64,6 +69,9 @@ public class TankRemain : MonoBehaviour
     /// </summary>
     public void Initialize()
     {
+        if (m_TargetCanvas == null)
+            return;
+        
         // 初期残機を設定する
         SetRemain(m_InitRemainCount);
 
@@ -130,5 +138,14 @@ public class TankRemain : MonoBehaviour
     public void HideRemainView()
     {
         m_RemainView.gameObject.Disable();
+    }
+
+    /// <summary>
+    /// 残機表示キャンバスを設定
+    /// </summary>
+    /// <param name="canvas"></param>
+    public void SetTargetCanvas(Canvas canvas)
+    {
+        m_TargetCanvas = canvas;
     }
 }

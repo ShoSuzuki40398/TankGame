@@ -19,7 +19,7 @@ public class SelectableObjectGroup : MonoBehaviour
     // 現在選択している選択肢のインデックス
     // 初期値は最上位の選択肢
     protected int m_CurrentSelectedElementIndex = 0;
-
+    
     private void Awake()
     {
         m_SelectablePairs = m_Selectables.ToDictionary(ele => ele.gameObject.GetInstanceID());
@@ -37,7 +37,7 @@ public class SelectableObjectGroup : MonoBehaviour
         // 最上位の選択肢を選択した状態から開始
         SelectElement(m_CurrentSelectedElementIndex);
     }
-
+    
     /// <summary>
     /// 各選択肢に識別IDを設定する
     /// 最初の選択肢を0とし、昇順で割り当てる
