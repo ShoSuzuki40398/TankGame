@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TankParts
   - RespawnPoint
+  - PlayerInput
   layers:
   - Default
   - TransparentFX

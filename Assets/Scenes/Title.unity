@@ -1488,11 +1488,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UniversalDeviceInput
       objectReference: {fileID: 0}
-    - target: {fileID: 6729313645025802332, guid: 4bb0e1caf22be1b4e830920960ec193e,
-        type: 3}
-      propertyPath: m_DefaultActionMap
-      value: 0f10805d-de27-410e-8810-b08041ca4ce6
-      objectReference: {fileID: 0}
     - target: {fileID: 6729313645025802334, guid: 4bb0e1caf22be1b4e830920960ec193e,
         type: 3}
       propertyPath: m_RootOrder

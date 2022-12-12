@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6729313645025802332}
   m_Layer: 0
   m_Name: UniversalDeviceInput
-  m_TagString: Untagged
+  m_TagString: PlayerInput
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,6 +116,6 @@ MonoBehaviour:
     m_ActionName: UI/Enter[/Keyboard/quote,/Keyboard/z]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

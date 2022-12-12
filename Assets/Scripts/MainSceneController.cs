@@ -66,6 +66,12 @@ public class MainSceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // レベルアート作成
+        var property = IngameSetting.Instance.CurrentLevelArtProperty;
+
+        if (property.Exist())
+            LevelArtLoader.Instance.InstantiateFromProperty(property.LevelArtType);
+
         // 状態登録
         m_StateMachine.AddState(Scene_State.Scene_Begin, new SceneBegin(this));
         m_StateMachine.AddState(Scene_State.Battle_Start, new BattleStart(this));

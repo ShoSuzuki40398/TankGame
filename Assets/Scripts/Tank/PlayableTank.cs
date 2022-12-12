@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// マニュアル入力による戦車制御
 /// プレイヤーが操作する戦車にアタッチする
 /// </summary>
-public class PlayableTank : MonoBehaviour,IPlayerInput
+public class PlayableTank : MonoBehaviour, IPlayerInput
 {
     [SerializeField]
     private TankMovement m_TankMovement;
@@ -18,8 +18,20 @@ public class PlayableTank : MonoBehaviour,IPlayerInput
     // 移動量の入力値
     private Vector2 m_InputMoveVector = Vector2.zero;
 
+    private PlayerInput m_PlayerInput;
+
     private void Awake()
     {
+        m_PlayerInput = GameObject.FindGameObjectWithTag(CommonDefineData.ObjectNamePlayerInput).GetComponent<PlayerInput>();
+        
+        foreach(var o in m_PlayerInput.actionEvents)
+        {
+            Debug.Log(o.actionName);        }
+
+        // Move入力イベントにOnMoveを追加
+        m_PlayerInput.actionEvents[0].AddListener(OnMove);
+        // Fire入力イベントにOnFireを追加
+        m_PlayerInput.actionEvents[1].AddListener(OnFire);
     }
 
     private void FixedUpdate()
@@ -61,5 +73,13 @@ public class PlayableTank : MonoBehaviour,IPlayerInput
         {
             m_TankShooting.Fire();
         }
+    }
+
+    private void OnDestroy()
+    {
+        // Move入力イベントにOnMoveを追加
+        m_PlayerInput.actionEvents[0].RemoveAllListeners();
+        // Fire入力イベントにOnFireを追加
+        m_PlayerInput.actionEvents[1].RemoveAllListeners();
     }
 }

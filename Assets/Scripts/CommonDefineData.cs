@@ -13,4 +13,6 @@ public class CommonDefineData
     public static string ObjectNameEnemyInitPos = "EnemyInitPos";
 
     public static string ObjectNameIngameCanvas = "IngameCanvas";
+
+    public static string ObjectNamePlayerInput = "PlayerInput";
 }
