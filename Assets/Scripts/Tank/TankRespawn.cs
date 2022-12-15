@@ -85,4 +85,12 @@ public class TankRespawn : MonoBehaviour
     {
         OnRespawnEvent?.Invoke();
     }
+
+    /// <summary>
+    /// ƒŠƒXƒ|[ƒ“§Œäİ’è
+    /// </summary>
+    public void SetRespawner(Respawner respawner)
+    {
+        m_Respawner = respawner;
+    }
 }

@@ -73,7 +73,8 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
             // 戦車生成
             Transform playerPos = op.Result.transform.Find(CommonDefineData.ObjectNamePlayerInitPos);
             Transform enemyPos = op.Result.transform.Find(CommonDefineData.ObjectNameEnemyInitPos);
-            CreateTanks(playerPos, enemyPos);
+            Respawner respawner = op.Result.GetComponentInChildren<Respawner>();
+            CreateTanks(playerPos, enemyPos,respawner);
             completed?.Invoke();
         };
     }
@@ -82,7 +83,7 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
     /// プレイヤーと敵の戦車を生成
     /// ついでに初期位置を指定する
     /// </summary>
-    public void CreateTanks(Transform playerPos, Transform enemyPos)
+    public void CreateTanks(Transform playerPos, Transform enemyPos,Respawner respawner)
     {
         m_PlayerTank = Instantiate(m_PlayerPrefab).GetComponent<PlayableTank>();
         m_EnemyTank = Instantiate(m_EnemyPrefab).GetComponent<AutomationTank>();
@@ -90,9 +91,11 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
         // プレイヤー
         m_PlayerTank.transform.position = playerPos.position;
         m_PlayerTank.transform.rotation = playerPos.rotation;
+        m_PlayerTank.GetComponentInChildren<TankRespawn>().SetRespawner(respawner);
 
         // 敵
         m_EnemyTank.transform.position = enemyPos.position;
         m_EnemyTank.transform.rotation = enemyPos.rotation;
+        m_EnemyTank.GetComponentInChildren<TankRespawn>().SetRespawner(respawner);
     }
 }
