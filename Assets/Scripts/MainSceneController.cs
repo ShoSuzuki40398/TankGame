@@ -69,8 +69,14 @@ public class MainSceneController : MonoBehaviour
     // 敵タンク
     private AutomationTank m_EnemyTank;
 
+    // インゲーム中の追従カメラ
     [SerializeField]
     private IngameCameras m_IngameCameras;
+
+    // カメラ振動
+    [SerializeField]
+    private ShakeCamera m_ShakeCamera;
+
 
     // Start is called before the first frame update
     void Start()
@@ -92,6 +98,9 @@ public class MainSceneController : MonoBehaviour
                 m_EnemyTank = LevelArtLoader.Instance.EnemyTank;
 
                 m_IngameCameras.SettingIngameCamera(m_PlayerTank.GetComponentInChildren<TankMovement>().transform, m_EnemyTank.GetComponentInChildren<TankMovement>().transform);
+
+                m_PlayerTank.GetComponentInChildren<Damageable>().OnDie.AddListener((damager,damageable)=> { m_ShakeCamera.Shake(); });
+                m_EnemyTank.GetComponentInChildren<Damageable>().OnDie.AddListener((damager, damageable) => { m_ShakeCamera.Shake(); });
 
                 // レベルアート読込時にシーン開始状態へ遷移する
                 m_StateMachine.ChangeState(Scene_State.Scene_Begin);
