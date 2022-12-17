@@ -140,7 +140,7 @@ MonoBehaviour:
     m_BetweenInpuluseVelocityZ:
       min: -0.1
       max: 0.1
-    m_InpulsePower: 10
+    m_InpulsePower: 1
     m_PowerCurveX:
       serializedVersion: 2
       m_Curve:
@@ -324,7 +324,7 @@ MonoBehaviour:
     m_BetweenInpuluseVelocityZ:
       min: -0.1
       max: 0.1
-    m_InpulsePower: 10
+    m_InpulsePower: 1
     m_PowerCurveX:
       serializedVersion: 2
       m_Curve:
@@ -509,7 +509,7 @@ MonoBehaviour:
     m_BetweenInpuluseVelocityZ:
       min: -0.1
       max: 0.1
-    m_InpulsePower: 10
+    m_InpulsePower: 1
     m_PowerCurveX:
       serializedVersion: 2
       m_Curve:
@@ -5508,7 +5508,7 @@ MonoBehaviour:
     m_BetweenInpuluseVelocityZ:
       min: -0.1
       max: 0.1
-    m_InpulsePower: 10
+    m_InpulsePower: 1
     m_PowerCurveX:
       serializedVersion: 2
       m_Curve:
@@ -5609,7 +5609,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4764023173676248523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10575,7 +10575,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 129
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -10671,6 +10671,7 @@ GameObject:
   - component: {fileID: 8836035540056036578}
   - component: {fileID: 6224011684209733206}
   - component: {fileID: 2362027772340485326}
+  - component: {fileID: 1511306226794420759}
   m_Layer: 8
   m_Name: Tank
   m_TagString: Untagged
@@ -10765,7 +10766,7 @@ MonoBehaviour:
   m_MinLaunchForce: 15
   m_MaxLaunchForce: 30
   m_ShellPool: {fileID: 2362027772340485320}
-  m_SelfShellLayer: 
+  m_SelfShellLayer: PlayerShell
 --- !u!114 &2362027772340485320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10804,6 +10805,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: TankHealth, Assembly-CSharp
         m_MethodName: HPChange
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShakeCamera, Assembly-CSharp
+        m_MethodName: Shake
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10887,6 +10900,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1511306226794420759}
+        m_TargetAssemblyTypeName: TankRemain, Assembly-CSharp
+        m_MethodName: SubRemain
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1511306226794420759}
+        m_TargetAssemblyTypeName: TankRemain, Assembly-CSharp
+        m_MethodName: HideRemainView
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8836035540056036578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10901,7 +10938,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ExplosionEffect: {fileID: 2362027773779143700}
   m_ExplosionSound: {fileID: 2362027773765399058}
-  m_ShakeCamera: {fileID: 0}
 --- !u!114 &6224011684209733206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10916,7 +10952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HPGaugeViewPrefab: {fileID: 3146802800071329494, guid: 1946234a3408575468bc1ec68fd5e496,
     type: 3}
-  m_HPGaugeViewParent: {fileID: 0}
+  m_TargetCanvas: {fileID: 0}
   m_ViewOffset: {x: 0, y: 1.2, z: 0}
 --- !u!114 &2362027772340485326
 MonoBehaviour:
@@ -10975,6 +11011,53 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6224011684209733206}
+        m_TargetAssemblyTypeName: TankHealth, Assembly-CSharp
+        m_MethodName: ShowGauge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1511306226794420759}
+        m_TargetAssemblyTypeName: TankRemain, Assembly-CSharp
+        m_MethodName: ShowRemainView
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1511306226794420759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7207846873992599885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd5ad0384270acf43818bcda20573c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InitRemainCount: 2
+  OnSubRemain:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLostAllRemain:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ViewOffset: {x: 0, y: 1.5, z: 0}
+  m_TargetCanvas: {fileID: 0}
+  m_RemainViewPerfab: {fileID: 1112241615347111296, guid: 1b29c5614f575b14dadc33e14759a3b0,
+    type: 3}
 --- !u!1 &7894403138453790991
 GameObject:
   m_ObjectHideFlags: 0

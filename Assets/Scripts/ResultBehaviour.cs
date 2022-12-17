@@ -23,16 +23,14 @@ public class ResultBehaviour : MonoBehaviour, IResult
     private TextMeshProUGUI m_ResultText;
 
     // 勝利時イベント直前
-    [SerializeField]
-    private UnityEvent OnPrePlayerWin;
+    public UnityEvent OnPrePlayerWin;
 
     // 勝利時イベント
     [SerializeField]
     private UnityEvent OnPlayerWin;
 
     // 敗北時イベント直前
-    [SerializeField]
-    private UnityEvent OnPrePlayerLose;
+    public UnityEvent OnPrePlayerLose;
 
     // 敗北時イベント
     [SerializeField]

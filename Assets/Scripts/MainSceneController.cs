@@ -97,10 +97,24 @@ public class MainSceneController : MonoBehaviour
                 m_PlayerTank = LevelArtLoader.Instance.PlayableTank;
                 m_EnemyTank = LevelArtLoader.Instance.EnemyTank;
 
+                // インゲームカメラ設定
                 m_IngameCameras.SettingIngameCamera(m_PlayerTank.GetComponentInChildren<TankMovement>().transform, m_EnemyTank.GetComponentInChildren<TankMovement>().transform);
 
+                // 破壊時イベント設定
                 m_PlayerTank.GetComponentInChildren<Damageable>().OnDie.AddListener((damager,damageable)=> { m_ShakeCamera.Shake(); });
                 m_EnemyTank.GetComponentInChildren<Damageable>().OnDie.AddListener((damager, damageable) => { m_ShakeCamera.Shake(); });
+
+                // 残機全消費時イベント設定
+                TankRemain playerRemain = m_PlayerTank.GetComponentInChildren<TankRemain>();
+                TankRemain enemyRemain = m_EnemyTank.GetComponentInChildren<TankRemain>();
+                playerRemain.OnLostAllRemain.AddListener(()=> { m_ResultBehaviour.SetResultType(ResultBehaviour.ResultType.PlayerLose); });
+                playerRemain.OnLostAllRemain.AddListener(ToBattleEnd);
+
+                enemyRemain.OnLostAllRemain.AddListener(() => { m_ResultBehaviour.SetResultType(ResultBehaviour.ResultType.PlayerWin); });
+                enemyRemain.OnLostAllRemain.AddListener(ToBattleEnd);
+
+                m_ResultBehaviour.OnPrePlayerWin.AddListener(() => { m_ResultBehaviour.SetResultCameraTraget(m_PlayerTank.Tank.transform); });
+                m_ResultBehaviour.OnPrePlayerLose.AddListener(() => { m_ResultBehaviour.SetResultCameraTraget(m_EnemyTank.Tank.transform); });
 
                 // レベルアート読込時にシーン開始状態へ遷移する
                 m_StateMachine.ChangeState(Scene_State.Scene_Begin);
@@ -133,7 +147,6 @@ public class MainSceneController : MonoBehaviour
 
     /// <summary>
     /// 戦闘終了
-    /// inspectorからTankRemainのUnityEventに設定する
     /// </summary>
     public void ToBattleEnd()
     {
@@ -207,8 +220,6 @@ public class MainSceneController : MonoBehaviour
             // 終了時のイベントはシグナルで設定しておく
             // 次の状態（戦闘開始状態）への遷移は終了時イベントで行う(FinishSceneBeginPerformance)
             owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Scene_Start);
-
-            //owner.Delay(7.0f, () => owner.StateMachine.ChangeState(Scene_State.Battle_Finish));
         }
 
         public override void Exit()

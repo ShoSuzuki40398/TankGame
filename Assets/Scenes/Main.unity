@@ -1528,19 +1528,7 @@ MonoBehaviour:
   m_ResultText: {fileID: 125983668}
   OnPrePlayerWin:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1116279762}
-        m_TargetAssemblyTypeName: ResultBehaviour, Assembly-CSharp
-        m_MethodName: SetResultCameraTraget
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnPlayerWin:
     m_PersistentCalls:
       m_Calls:
@@ -1571,19 +1559,7 @@ MonoBehaviour:
         m_CallState: 2
   OnPrePlayerLose:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1116279762}
-        m_TargetAssemblyTypeName: ResultBehaviour, Assembly-CSharp
-        m_MethodName: SetResultCameraTraget
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnPlayerLose:
     m_PersistentCalls:
       m_Calls:

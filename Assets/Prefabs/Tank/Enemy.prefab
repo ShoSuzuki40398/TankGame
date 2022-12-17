@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6a3536471d27b4ebae799916a8092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Tank: {fileID: 4330102953925509196}
 --- !u!1001 &6345843707172133121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -533,7 +534,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1511306226794420759, guid: c12f8902389dedd49bcfe928d9472aef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c12f8902389dedd49bcfe928d9472aef, type: 3}
 --- !u!114 &1040567480853411671 stripped
 MonoBehaviour:
@@ -577,31 +579,7 @@ MonoBehaviour:
       m_Calls: []
   OnLostAllRemain:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ResultBehaviour, Assembly-CSharp
-        m_MethodName: SetResultType
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MainSceneController, Assembly-CSharp
-        m_MethodName: ToBattleEnd
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_ViewOffset: {x: 0, y: 1.5, z: 0}
   m_TargetCanvas: {fileID: 0}
   m_RemainViewPerfab: {fileID: 1112241615347111296, guid: 1b29c5614f575b14dadc33e14759a3b0,

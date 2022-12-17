@@ -20,6 +20,11 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
 
     private PlayerInput m_PlayerInput;
 
+    // êÌé‘ñ{ëÃ
+    [SerializeField]
+    private GameObject m_Tank;
+    public GameObject Tank { get { return m_Tank; } }
+
     private void Awake()
     {
         m_PlayerInput = GameObject.FindGameObjectWithTag(CommonDefineData.ObjectNamePlayerInput).GetComponent<PlayerInput>();

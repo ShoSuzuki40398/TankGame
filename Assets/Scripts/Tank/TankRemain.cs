@@ -20,8 +20,7 @@ public class TankRemain : MonoBehaviour
     private UnityEvent OnSubRemain;
 
     // 残機全消費時イベント
-    [SerializeField]
-    private UnityEvent OnLostAllRemain;
+    public UnityEvent OnLostAllRemain;
 
     // UI ---------------------------------------------------
     // 戦車座標
