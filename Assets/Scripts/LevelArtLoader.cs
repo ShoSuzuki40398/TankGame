@@ -28,11 +28,13 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
     [SerializeField]
     private GameObject m_PlayerPrefab;
     private PlayableTank m_PlayerTank;
+    public PlayableTank PlayableTank { get { return m_PlayerTank; } }
 
     // “Gƒ^ƒ“ƒN
     [SerializeField]
     private GameObject m_EnemyPrefab;
     private AutomationTank m_EnemyTank;
+    public AutomationTank EnemyTank { get { return m_EnemyTank; } }
     
     protected override void ActionInAwake()
     {

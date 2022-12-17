@@ -63,15 +63,18 @@ public class MainSceneController : MonoBehaviour
     [SerializeField]
     private SelectableObjectGroup m_ResultManuGroup;
 
+    // プレイヤータンク
+    private PlayableTank m_PlayerTank;
+
+    // 敵タンク
+    private AutomationTank m_EnemyTank;
+
+    [SerializeField]
+    private IngameCameras m_IngameCameras;
+
     // Start is called before the first frame update
     void Start()
     {
-        // レベルアート作成
-        var property = IngameSetting.Instance.CurrentLevelArtProperty;
-
-        if (property.Exist())
-            LevelArtLoader.Instance.InstantiateFromProperty(property.LevelArtType);
-
         // 状態登録
         m_StateMachine.AddState(Scene_State.Scene_Begin, new SceneBegin(this));
         m_StateMachine.AddState(Scene_State.Battle_Start, new BattleStart(this));
@@ -80,7 +83,19 @@ public class MainSceneController : MonoBehaviour
         m_StateMachine.AddState(Scene_State.Battle_Result, new BattleResult(this));
         m_StateMachine.AddState(Scene_State.Scene_End, new SceneEnd(this));
 
-        m_StateMachine.ChangeState(Scene_State.Scene_Begin);
+        // レベルアート作成
+        var property = IngameSetting.Instance.CurrentLevelArtProperty;
+
+        if (property.Exist())
+            LevelArtLoader.Instance.InstantiateFromProperty(property.LevelArtType,()=> {
+                m_PlayerTank = LevelArtLoader.Instance.PlayableTank;
+                m_EnemyTank = LevelArtLoader.Instance.EnemyTank;
+
+                m_IngameCameras.SettingIngameCamera(m_PlayerTank.GetComponentInChildren<TankMovement>().transform, m_EnemyTank.GetComponentInChildren<TankMovement>().transform);
+
+                // レベルアート読込時にシーン開始状態へ遷移する
+                m_StateMachine.ChangeState(Scene_State.Scene_Begin);
+            });
     }
 
     // Update is called once per frame

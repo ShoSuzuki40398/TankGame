@@ -221,8 +221,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61708688}
-  m_LocalRotation: {x: 0.21446285, y: 0.0851798, z: -0.018778106, w: 0.97282964}
-  m_LocalPosition: {x: 2, y: 10, z: -6.4}
+  m_LocalRotation: {x: 0.41347787, y: -0.21413969, z: 0.10070447, w: 0.8792263}
+  m_LocalPosition: {x: 2.4032764, y: 0.8702111, z: 2.28364}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -660,7 +660,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 480146868}
-  m_LocalRotation: {x: 0.41347787, y: -0.2141397, z: 0.100704476, w: 0.8792263}
+  m_LocalRotation: {x: 0.41347787, y: -0.21413969, z: 0.10070447, w: 0.8792263}
   m_LocalPosition: {x: 5.16, y: 8.11, z: -3.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -989,6 +989,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 772846641}
+  - component: {fileID: 772846642}
   m_Layer: 0
   m_Name: Cameras
   m_TagString: Untagged
@@ -1013,6 +1014,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &772846642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772846640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17442b85ac853054d86b21df0fbb09d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IngameTargetGroup: {fileID: 705099247}
+  m_PlayerVcam: {fileID: 61708690}
+  m_PlayerWeight: 1
+  m_PlayerRadius: 3
+  m_EnemyVcam: {fileID: 1118167419}
+  m_EnemyWeight: 0.7
+  m_EnemyRadius: 3
 --- !u!1 &830860452
 GameObject:
   m_ObjectHideFlags: 0
@@ -3239,7 +3259,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 100
-  field of view: 59.999996
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -3264,8 +3284,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998349308}
-  m_LocalRotation: {x: 0.21446285, y: 0.0851798, z: -0.018778106, w: 0.97282964}
-  m_LocalPosition: {x: 2, y: 10, z: -6.4}
+  m_LocalRotation: {x: 0.41347787, y: -0.21413969, z: 0.10070447, w: 0.8792263}
+  m_LocalPosition: {x: 2.4032764, y: 0.8702111, z: 2.28364}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3514,6 +3534,7 @@ MonoBehaviour:
   m_ResultCanvas: {fileID: 176249873}
   m_ResultBehaviour: {fileID: 1116279762}
   m_ResultManuGroup: {fileID: 1057275242}
+  m_IngameCameras: {fileID: 772846642}
 --- !u!114 &380067262056541640
 MonoBehaviour:
   m_ObjectHideFlags: 0
