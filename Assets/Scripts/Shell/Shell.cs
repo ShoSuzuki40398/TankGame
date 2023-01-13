@@ -87,8 +87,6 @@ public class Shell : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter: " + other.name);
-
         Hit();
 
         Release();

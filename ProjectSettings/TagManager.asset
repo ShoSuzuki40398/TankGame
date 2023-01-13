@@ -7,6 +7,8 @@ TagManager:
   - TankParts
   - RespawnPoint
   - PlayerInput
+  - Obstacle
+  - Shell
   layers:
   - Default
   - TransparentFX
