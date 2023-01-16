@@ -125,6 +125,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &206800305 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4330102953925509196, guid: 808605334dcb82a409f3b197c542a020,
+    type: 3}
+  m_PrefabInstance: {fileID: 1976234937}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &278967383 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 89010988, guid: 98f66b535c1238c4bb974812134e723c,
@@ -143,7 +149,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1976234937}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &344376308
+--- !u!114 &344376311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6345843707339369180, guid: 808605334dcb82a409f3b197c542a020,
+    type: 3}
+  m_PrefabInstance: {fileID: 1976234937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344376305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6a3536471d27b4ebae799916a8092a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &344376312
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,27 +170,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 344376305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: TankFrontRayPerceptionSensor
-  m_DetectableTags:
-  - Player
-  - Obstacle
-  - PlayerShell
-  - EnemyShell
-  m_RaysPerDirection: 8
-  m_MaxRayDegrees: 90
-  m_SphereCastRadius: 0.5
-  m_RayLength: 10
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294966217
-  m_ObservationStacks: 5
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
-  m_StartVerticalOffset: 0
-  m_EndVerticalOffset: 0
+  DecisionPeriod: 6
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &409248412
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +371,56 @@ PrefabInstance:
       propertyPath: m_Respawner
       value: 
       objectReference: {fileID: 278967383}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[8].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[8].m_Target
+      value: 
+      objectReference: {fileID: 344376311}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[8].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[8].m_MethodName
+      value: DieToTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 344376311}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: BulletHitToTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[8].m_TargetAssemblyTypeName
+      value: AutomationTank, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: AutomationTank, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3764629677883057876, guid: 77b8643fecd485f4f9f32624a2aa49c0,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[8].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3764629678329158692, guid: 77b8643fecd485f4f9f32624a2aa49c0,
         type: 3}
       propertyPath: m_RootOrder
@@ -761,10 +813,28 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 597354453, guid: 98f66b535c1238c4bb974812134e723c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211565196, guid: 98f66b535c1238c4bb974812134e723c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093097399015609469, guid: 98f66b535c1238c4bb974812134e723c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2093097399015609469, guid: 98f66b535c1238c4bb974812134e723c,
         type: 3}
       propertyPath: m_TagString
       value: Obstacle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093097399827630818, guid: 98f66b535c1238c4bb974812134e723c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4295091730333768104, guid: 98f66b535c1238c4bb974812134e723c,
         type: 3}
@@ -986,10 +1056,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 581933440719626640, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1040567480853411671, guid: 808605334dcb82a409f3b197c542a020,
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236776076996168416, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877370952352216266, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6345843705619335238, guid: 808605334dcb82a409f3b197c542a020,
         type: 3}
@@ -1058,18 +1143,138 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6345843707339369180, guid: 808605334dcb82a409f3b197c542a020,
         type: 3}
+      propertyPath: MaxStep
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345843707339369180, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
       propertyPath: m_Target
       value: 
       objectReference: {fileID: 1283261365}
+    - target: {fileID: 6345843707339369180, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_TankMovement
+      value: 
+      objectReference: {fileID: 2015839433}
+    - target: {fileID: 6345843707339369180, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_TankShooting
+      value: 
+      objectReference: {fileID: 2015839431}
     - target: {fileID: 6374669238257248526, guid: 808605334dcb82a409f3b197c542a020,
         type: 3}
       propertyPath: m_BehaviorName
       value: TankAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 6374669238257248526, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSpaceType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374669238257248526, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374669238257248526, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374669238257248526, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374669238257248526, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374669238257248526, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374669238257248526, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.m_NumContinuousActions
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6374669238257248526, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463543229750675852, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: Mute
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474622948550418996, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8707547719721298707, guid: 808605334dcb82a409f3b197c542a020,
         type: 3}
       propertyPath: Mute
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[9].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[9].m_Target
+      value: 
+      objectReference: {fileID: 344376311}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[9].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[9].m_MethodName
+      value: DieToMyself
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 344376311}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: BulletHitToMyself
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[9].m_TargetAssemblyTypeName
+      value: AutomationTank, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnTakeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: AutomationTank, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707547720108385738, guid: 808605334dcb82a409f3b197c542a020,
+        type: 3}
+      propertyPath: OnDie.m_PersistentCalls.m_Calls.Array.data[9].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8707547720108385743, guid: 808605334dcb82a409f3b197c542a020,
         type: 3}
@@ -1237,6 +1442,58 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1976234937}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2015839431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8707547720108385734, guid: 808605334dcb82a409f3b197c542a020,
+    type: 3}
+  m_PrefabInstance: {fileID: 1976234937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206800305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb45458ce32ebe4db9f5d3160d57397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2015839433 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8707547720108385730, guid: 808605334dcb82a409f3b197c542a020,
+    type: 3}
+  m_PrefabInstance: {fileID: 1976234937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206800305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1db0937908e6df4caca4be824ac17b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2015839442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206800305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: TankFrontRayPerceptionSensor
+  m_DetectableTags:
+  - Player
+  - Obstacle
+  m_RaysPerDirection: 8
+  m_MaxRayDegrees: 90
+  m_SphereCastRadius: 0.5
+  m_RayLength: 15
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294966217
+  m_ObservationStacks: 2
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 0
 --- !u!1 &2033208455
 GameObject:
   m_ObjectHideFlags: 0

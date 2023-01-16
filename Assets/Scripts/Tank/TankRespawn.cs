@@ -41,13 +41,13 @@ public class TankRespawn : MonoBehaviour
     {
         this.Delay(m_StartRespawnCount, ()=>Initialize(damager,damageable));
     }
-    
+
     /// <summary>
     /// 座標、パラメーター等の初期化
     /// </summary>
     /// <param name="damager"></param>
     /// <param name="damageable"></param>
-    private void Initialize(Damager damager, Damageable damageable)
+    private void Initialize(Damager damager = null, Damageable damageable = null)
     {
         // リスポーン前イベント
         PreExecuteRepawnEvent();

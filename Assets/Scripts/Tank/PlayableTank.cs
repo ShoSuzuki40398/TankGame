@@ -30,9 +30,9 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
         m_PlayerInput = GameObject.FindGameObjectWithTag(CommonDefineData.ObjectNamePlayerInput).GetComponent<PlayerInput>();
         
         // Move入力イベントにOnMoveを追加
-        m_PlayerInput.actionEvents[0].AddListener(OnMove);
+        //m_PlayerInput.actionEvents[0].AddListener(OnMove);
         // Fire入力イベントにOnFireを追加
-        m_PlayerInput.actionEvents[1].AddListener(OnFire);
+        //m_PlayerInput.actionEvents[1].AddListener(OnFire);
     }
 
     private void FixedUpdate()
