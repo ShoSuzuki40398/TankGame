@@ -1271,6 +1271,12 @@ PrefabInstance:
       propertyPath: m_DetectableTags.Array.data[2]
       value: Target
       objectReference: {fileID: 0}
+    - target: {fileID: 7538746607285748734, guid: 15b5c6015cdf1594d972ddb7396e7765,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 7341154b8307a7f46b1527aa56b44ac5,
+        type: 3}
     - target: {fileID: 8097864886713804384, guid: 15b5c6015cdf1594d972ddb7396e7765,
         type: 3}
       propertyPath: m_TurnSpeed
