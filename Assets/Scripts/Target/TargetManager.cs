@@ -31,7 +31,7 @@ public class TargetManager : MonoBehaviour
                 if (!Physics.CheckBox(pos, halfExtents, Quaternion.identity, layerMask))
                 {
                     var target = m_TargetPool.Pop();
-                    target.target.Initialize(pos, Quaternion.identity,automationTank);
+                    target.target.Initialize(pos, Quaternion.identity);
                     break;
                 }
                 else

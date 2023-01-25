@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// ターゲットオブジェクト制御
+/// </summary>
 public class Target : MonoBehaviour
 {
     [HideInInspector]
@@ -12,7 +14,6 @@ public class Target : MonoBehaviour
     [SerializeField]
     private float m_RotateSpeed = 5;
 
-    public AutomationTank automationTank;
 
     private void Update()
     {
@@ -27,25 +28,19 @@ public class Target : MonoBehaviour
     /// <summary>
     /// 初期位置設定
     /// </summary>
-    public void Initialize(Vector3 pos, Quaternion rot,AutomationTank automationTank)
+    public void Initialize(Vector3 pos, Quaternion rot)
     {
         transform.localPosition = pos;
         transform.localRotation = rot;
-        this.automationTank = automationTank;
     }
 
+    /// <summary>
+    /// ターゲット被弾時
+    /// </summary>
+    /// <param name="damager"></param>
+    /// <param name="damageable"></param>
     public void Hit(Damager damager, Damageable damageable)
     {
-        var layer = LayerMask.LayerToName(damager.gameObject.layer);
-
-        if (layer == "EnemyShell")
-        {
-            automationTank.HitTarget(0.1f);
-        }
-        else if(layer == "PlayerShell")
-        {
-            automationTank.HitTarget(-0.1f);
-        }
         m_TargetObject.ReturnToPool();
     }
 }

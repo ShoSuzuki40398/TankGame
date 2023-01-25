@@ -65,7 +65,7 @@ public class AutomationTank : Agent
     // Update is called once per frame
     void Update()
     {
-        // OnActionReceivedにてNavMeshのMove関数で戦車を移動すると、砲弾があらぬ方向へ飛んでいく不具合がある
+        // OnActionReceivedにてNavMeshのMove関数で戦車を移動すると、砲弾があらぬ方向へ飛んでいく不具合がある。
         // そのためMove関数だけUpdateでコールする。
         // OnActionReceivedではmoveVelocityだけ設定し、Update内でMavMeshによる移動をすることで上記不具合を回避します。
         m_NavMeshAgent.Move(moveVelocity * Time.deltaTime * m_TankMovement.Speed);
@@ -157,20 +157,9 @@ public class AutomationTank : Agent
 
         //　MaxStepを分母にして1ステップ毎にマイナス報酬を与える
         var distance = Vector3.Distance(m_Target.position, m_Tank.transform.position);
-        
+
         // 時間経過で罰を与える
         AddReward(-1f / MaxStep);
-
-        // 適正な距離に要れば報酬を与える
-        //if (m_CloseDistance <= distance && distance <= m_FarDistance)
-        //{
-        //    AddReward(0.1f / MaxStep);
-        //}
-        //else
-        //{
-        //    AddReward(-0.1f / MaxStep);
-
-        //}
 
         // 近づきすぎると厳罰
         if (m_CloseDistance * 0.5f >= distance)
@@ -182,31 +171,19 @@ public class AutomationTank : Agent
         // プレイヤーの方を向いていると報酬を与える
         var vec = m_Target.transform.position - m_Tank.transform.position;
         var dot = Vector3.Dot(vec.normalized, m_Tank.transform.forward);
-        
-        //if(dot >= m_DotRange)
-        //{
-        //    AddReward(0.1f / MaxStep);
-        //}
-        //else
-        //{
-        //    AddReward(-0.1f / MaxStep);
-        //}
 
         // 適正射撃
         if (discreateAction[0] == 1 && m_CloseDistance <= distance && distance <= m_FarDistance && dot >= m_DotRange)
         {
-            AddReward(1.0f/MaxStep);
+            AddReward(1.0f / MaxStep);
         }
-        //else if (discreateAction[0] == 1 && m_CloseDistance >= distance && distance >= m_FarDistance && dot <= m_DotRange)
-        //{
-        //    AddReward(-1.0f / MaxStep);
-        //}
 
         // 後退ペナルティ
-        if(continuousAction[0] < 0)
+        if (continuousAction[0] < 0)
         {
             AddReward(-1.0f / MaxStep);
         }
+
         //　移動データの作成
         moveVelocity = (m_Tank.transform.forward * continuousAction[0]).normalized;
         m_TankMovement.Turn(continuousAction[1]);
@@ -215,23 +192,6 @@ public class AutomationTank : Agent
         {
             m_TankShooting.Fire();
         }
-
-        //　なんらかの影響でFloorから転落し位置が-5より下になったら元に戻す
-        if (m_Tank.transform.localPosition.y < -5f)
-        {
-            AgentInitialize();
-        }
-
-        if (m_Target.localPosition.y < -5f)
-        {
-            AgentInitialize();
-        }
-
-        // Target 全消滅
-        //if (targetManager.IsAllTargetInPool())
-        //{
-        //    EndEpisode();
-        //}
     }
 
     /// <summary>
