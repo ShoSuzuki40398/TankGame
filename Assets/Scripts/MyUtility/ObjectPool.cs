@@ -88,6 +88,23 @@ public abstract class ObjectPool<TPool,TObject> : MonoBehaviour
         poolObject.inPool = true;
         poolObject.Sleep();
     }
+
+    /// <summary>
+    /// プールオブジェクトが全てプール内にあるか
+    /// </summary>
+    /// <returns></returns>
+    public bool IsAllInPool()
+    {
+        foreach(var obj in poolingObjectList)
+        {
+            if (!obj.inPool)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 /// <summary>

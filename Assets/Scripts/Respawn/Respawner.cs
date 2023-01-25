@@ -10,6 +10,7 @@ using UnityEngine;
 public class Respawner : MonoBehaviour
 {
     // リスポーン位置リスト
+    [SerializeField]
     private GameObject[] m_RespawnPoints = null;
 
     // リスポーンタグ
@@ -28,7 +29,6 @@ public class Respawner : MonoBehaviour
 
     private void Awake()
     {
-        m_RespawnPoints = GameObject.FindGameObjectsWithTag(m_RespawnTag);
     }
 
     /// <summary>

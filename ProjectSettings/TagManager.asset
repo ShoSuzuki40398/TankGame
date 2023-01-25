@@ -9,6 +9,8 @@ TagManager:
   - PlayerInput
   - Obstacle
   - Shell
+  - Enemy
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Player
   - EnemyShell
   - Enemy
-  - 
+  - Target
   - 
   - 
   - 

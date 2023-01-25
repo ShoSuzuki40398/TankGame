@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6345843707339369171}
   - component: {fileID: 6345843707339369180}
+  - component: {fileID: 6374669238257248526}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -45,7 +46,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6a3536471d27b4ebae799916a8092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  m_Target: {fileID: 0}
+  m_TargetRigidBody: {fileID: 0}
+  m_TankMovement: {fileID: 0}
+  m_TankShooting: {fileID: 0}
   m_Tank: {fileID: 4330102953925509196}
+  initPos: {fileID: 0}
+  initTargetPos: {fileID: 0}
+  m_CloseDistance: 4
+  m_FarDistance: 6
+--- !u!114 &6374669238257248526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6345843707339369170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 01000000
+    VectorActionSize: 01000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
 --- !u!1001 &6345843707172133121
 PrefabInstance:
   m_ObjectHideFlags: 0

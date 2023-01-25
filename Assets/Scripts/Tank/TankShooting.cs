@@ -72,7 +72,10 @@ public class TankShooting : MonoBehaviour
         shellRigidbody.velocity = m_CurrentLaunchForce * m_BulletSpawnPoint.forward;
 
         // Change the clip to the firing clip and play it.
-        m_FireSound.Play();
+        if(m_FireSound != null)
+        {
+            m_FireSound?.Play();
+        }
 
         // Reset the launch force.  This is a precaution in case of missing button events.
         m_CurrentLaunchForce = m_MinLaunchForce;

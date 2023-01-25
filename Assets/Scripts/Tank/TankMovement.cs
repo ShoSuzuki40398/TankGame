@@ -11,8 +11,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class TankMovement : MonoBehaviour
 {
-    [SerializeField,Tooltip("移動速度")]
+    [SerializeField, Tooltip("移動速度")]
     private float m_Speed = 1f;
+    public float Speed { get { return m_Speed; } }
     [SerializeField, Tooltip("回転速度")]
     private float m_TurnSpeed = 180f;
 
@@ -33,7 +34,7 @@ public class TankMovement : MonoBehaviour
     // 移動量
     private Vector3 m_NextMovement;
     // 回転量
-    private Quaternion m_NextRotate = Quaternion.identity;       
+    private Quaternion m_NextRotate = Quaternion.identity;
 
 
     private void Awake()
@@ -77,7 +78,7 @@ public class TankMovement : MonoBehaviour
     /// シンプルに座標移動
     /// </summary>
     /// <param name="speedScale">移動倍率</param>
-    public void Move( float speedScale = 1.0f)
+    public void Move(float speedScale = 1.0f)
     {
         m_NextMovement = transform.forward * speedScale * m_Speed * Time.deltaTime;
     }
@@ -97,15 +98,16 @@ public class TankMovement : MonoBehaviour
     /// </summary>
     private void EngineSoundUpdate()
     {
-        if(Mathf.Approximately(m_NextMovement.magnitude,0))
+        if (m_EngineSound != null && Mathf.Approximately(m_NextMovement.magnitude, 0))
         {
             m_EngineSound.Stop();
             return;
         }
 
-        if(!m_EngineSound.isPlaying)
-            m_EngineSound.Play();
-        
+        if (m_EngineSound != null && !m_EngineSound.isPlaying)
+        {
+            m_EngineSound?.Play();
+        }
     }
 
     /// <summary>

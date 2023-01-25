@@ -25,20 +25,36 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
     private GameObject m_Tank;
     public GameObject Tank { get { return m_Tank; } }
 
+    [SerializeField]
+    private Transform m_Target;
+
+    //向くスピード(秒速)
+    [SerializeField]
+    float speed = 0.005f;
+
+
     private void Awake()
     {
         m_PlayerInput = GameObject.FindGameObjectWithTag(CommonDefineData.ObjectNamePlayerInput).GetComponent<PlayerInput>();
-        
+
         // Move入力イベントにOnMoveを追加
         //m_PlayerInput.actionEvents[0].AddListener(OnMove);
         // Fire入力イベントにOnFireを追加
         //m_PlayerInput.actionEvents[1].AddListener(OnFire);
     }
 
+    private void Start()
+    {
+        StartCoroutine(AutoFire());
+    }
+
     private void FixedUpdate()
     {
         // 移動と回転
-        Movement();
+        //Movement();
+
+        //向き始めと終わりの点を計算して、stepの値より、今向くべき方向を算出
+        m_Tank.transform.rotation = Quaternion.Slerp(m_Tank.transform.rotation, Quaternion.LookRotation((m_Target.position - m_Tank.transform.position).normalized), speed * Time.deltaTime);
     }
 
     /// <summary>
@@ -79,8 +95,18 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
     private void OnDestroy()
     {
         // Move入力イベントにOnMoveを追加
-        m_PlayerInput.actionEvents[0].RemoveAllListeners();
+        //m_PlayerInput.actionEvents[0].RemoveAllListeners();
         // Fire入力イベントにOnFireを追加
-        m_PlayerInput.actionEvents[1].RemoveAllListeners();
+        //m_PlayerInput.actionEvents[1].RemoveAllListeners();
+    }
+
+    private IEnumerator AutoFire()
+    {
+        while(true)
+        {
+            m_TankShooting.Fire();
+            yield return new WaitForSeconds(1.5f);
+        }
+        
     }
 }
