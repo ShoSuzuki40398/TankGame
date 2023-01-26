@@ -97,6 +97,9 @@ public class MainSceneController : MonoBehaviour
                 m_PlayerTank = LevelArtLoader.Instance.PlayableTank;
                 m_EnemyTank = LevelArtLoader.Instance.EnemyTank;
 
+                // プレイヤーをターゲットとして設定
+                m_EnemyTank.SetTarget(m_PlayerTank.transform);
+
                 // インゲームカメラ設定
                 m_IngameCameras.SettingIngameCamera(m_PlayerTank.GetComponentInChildren<TankMovement>().transform, m_EnemyTank.GetComponentInChildren<TankMovement>().transform);
 
@@ -113,6 +116,7 @@ public class MainSceneController : MonoBehaviour
                 enemyRemain.OnLostAllRemain.AddListener(() => { m_ResultBehaviour.SetResultType(ResultBehaviour.ResultType.PlayerWin); });
                 enemyRemain.OnLostAllRemain.AddListener(ToBattleEnd);
 
+                // リザルト設定
                 m_ResultBehaviour.OnPrePlayerWin.AddListener(() => { m_ResultBehaviour.SetResultCameraTraget(m_PlayerTank.Tank.transform); });
                 m_ResultBehaviour.OnPrePlayerLose.AddListener(() => { m_ResultBehaviour.SetResultCameraTraget(m_EnemyTank.Tank.transform); });
 
@@ -164,6 +168,9 @@ public class MainSceneController : MonoBehaviour
         // 各キャンバス非表示
         m_IngameCanvas.Disable();
         m_ResultCanvas.Disable();
+
+        // 敵の停止
+        m_EnemyTank.Disable();
     }
 
     private void SceneFinalize()
@@ -245,6 +252,9 @@ public class MainSceneController : MonoBehaviour
 
             // インゲームキャンバス表示
             owner.m_IngameCanvas.Enable();
+
+            // 敵の起動
+            owner.m_EnemyTank.Enable();
         }
     }
     /// <summary>
@@ -278,6 +288,9 @@ public class MainSceneController : MonoBehaviour
             // リザルト前準備
             // 勝敗結果は残機制御から送る
             owner.m_ResultBehaviour.ResultSetUp();
+
+            // 敵停止
+            owner.m_EnemyTank.Disable();
 
             // 戦闘終了演出を再生する
             // 終了時のイベントはシグナルで設定しておく

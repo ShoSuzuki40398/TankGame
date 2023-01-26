@@ -72,6 +72,7 @@ public class TankMovement : MonoBehaviour
         Quaternion q = (m_Rigidbody.rotation * m_NextRotate).normalized;
         m_Rigidbody.MoveRotation(q);
         m_NextRotate = Quaternion.identity;
+        m_Rigidbody.angularVelocity = Vector3.zero;
     }
 
     /// <summary>

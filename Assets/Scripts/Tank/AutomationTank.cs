@@ -13,9 +13,7 @@ using UnityEngine.AI;
 public class AutomationTank : Agent
 {
     [SerializeField]
-    private Transform m_Target;
-    [SerializeField]
-    private Rigidbody m_TargetRigidBody;
+    private Transform m_Player;
 
     [SerializeField]
     private TankMovement m_TankMovement;
@@ -25,6 +23,9 @@ public class AutomationTank : Agent
 
     [SerializeField]
     private NavMeshAgent m_NavMeshAgent;
+
+    [SerializeField]
+    private DecisionRequester m_DecisionRequester;
 
     // 戦車本体
     [SerializeField]
@@ -44,17 +45,8 @@ public class AutomationTank : Agent
     [SerializeField,Range(-1,1)]
     private float m_DotRange = 0.9f;
 
-    [Range(0, 15)]
-    [SerializeField]
-    private float respawnRange = 0;
-
-    [SerializeField]
-    private LayerMask LayerMask;
-
+    // 移動量
     Vector3 moveVelocity = Vector3.zero;
-
-    [SerializeField]
-    private TargetManager targetManager;
 
     // Start is called before the first frame update
     void Start()
@@ -71,80 +63,29 @@ public class AutomationTank : Agent
         m_NavMeshAgent.Move(moveVelocity * Time.deltaTime * m_TankMovement.Speed);
     }
 
-    private void AgentInitialize()
-    {
-        Vector3 initPlayerPos = new Vector3(Random.Range(-respawnRange, respawnRange), 0.25f, Random.Range(-respawnRange, respawnRange));
-        Vector3 initEnemyPos = new Vector3(Random.Range(-respawnRange, respawnRange), 0.25f, Random.Range(-respawnRange, respawnRange));
-
-        
-        // 10回試す
-        for (int n = 0; n < 100; n++)
-        {
-            Vector3 halfExtents = new Vector3(0.5f, 0.05f, 0.5f);
-            // 重ならないとき
-            if (!Physics.CheckBox(initEnemyPos, halfExtents, Quaternion.identity,LayerMask))
-            {
-                m_Tank.transform.localPosition = initEnemyPos;
-                break;
-            }
-            else
-            {
-                initEnemyPos = new Vector3(Random.Range(-respawnRange, respawnRange), 0.25f, Random.Range(-respawnRange, respawnRange));
-            }
-        }
-
-        // 10回試す
-        for (int n = 0; n < 100; n++)
-        {
-            Vector3 halfExtents = new Vector3(3.5f, 0.05f, 3.5f);
-            // 重ならないとき
-            if (!Physics.CheckBox(initPlayerPos, halfExtents, Quaternion.identity, LayerMask))
-            {
-                m_Target.transform.localPosition = initPlayerPos;
-                break;
-            }
-            else
-            {
-                var distance = Vector3.Distance(m_Target.position, m_Tank.transform.position);
-
-                initPlayerPos = new Vector3(Random.Range(-respawnRange, respawnRange), 0.25f, Random.Range(-respawnRange, respawnRange));
-            }
-        }
-
-        // ランダムな方に向く
-        var angle = Random.Range(0, 360);
-        m_Tank.transform.Rotate(0, angle, 0);
-        angle = Random.Range(0, 360);
-        m_Target.Rotate(0, angle, 0);
-
-        // プレイヤーのリジッドボディ初期化
-        m_TargetRigidBody.velocity = Vector3.zero;
-        m_TargetRigidBody.angularVelocity = Vector3.zero;
-
-        // ターゲット初期化
-        targetManager.TargetInitialize(this);
-    }
-
     // エピソード開始時
     public override void OnEpisodeBegin()
     {
-        AgentInitialize();
     }
 
     //　観察の収集
     public override void CollectObservations(VectorSensor sensor)
     {
+        if (m_Player == null)
+            return;
+
+
         //　自分とプレイヤーの位置を観察に追加する
-        sensor.AddObservation(m_Target.localPosition);
+        sensor.AddObservation(m_Player.localPosition);
         sensor.AddObservation(m_Tank.transform.localPosition);
         //　プレイヤーの方向を正規化し観察に追加する
-        var direction = (m_Target.localPosition - m_Tank.transform.localPosition).normalized;
+        var direction = (m_Player.localPosition - m_Tank.transform.localPosition).normalized;
         sensor.AddObservation(direction);
 
         // 自分の正面方向を観察に追加する
         sensor.AddObservation(m_Tank.transform.forward);
 
-        var distance = Vector3.Distance(m_Target.position, m_Tank.transform.position);
+        var distance = Vector3.Distance(m_Player.position, m_Tank.transform.position);
         sensor.AddObservation(distance);
     }
 
@@ -156,7 +97,7 @@ public class AutomationTank : Agent
         var discreateAction = actions.DiscreteActions;
 
         //　MaxStepを分母にして1ステップ毎にマイナス報酬を与える
-        var distance = Vector3.Distance(m_Target.position, m_Tank.transform.position);
+        var distance = Vector3.Distance(m_Player.position, m_Tank.transform.position);
 
         // 時間経過で罰を与える
         AddReward(-1f / MaxStep);
@@ -169,7 +110,7 @@ public class AutomationTank : Agent
         }
 
         // プレイヤーの方を向いていると報酬を与える
-        var vec = m_Target.transform.position - m_Tank.transform.position;
+        var vec = m_Player.transform.position - m_Tank.transform.position;
         var dot = Vector3.Dot(vec.normalized, m_Tank.transform.forward);
 
         // 適正射撃
@@ -194,50 +135,6 @@ public class AutomationTank : Agent
         }
     }
 
-    /// <summary>
-    /// プレイヤーに弾を当てたとき
-    /// </summary>
-    public void BulletHitToTarget()
-    {
-        AddReward(0.2f);
-    }
-
-    /// <summary>
-    /// 自分に弾が当たった時
-    /// </summary>
-    public void BulletHitToMyself()
-    {
-        AddReward(-0.1f);
-    }
-
-    /// <summary>
-    /// プレイヤーが破壊された時
-    /// </summary>
-    public void DieToTarget()
-    {
-        AddReward(0.3f);
-        EndEpisode();
-    }
-
-    /// <summary>
-    /// 自分が破壊された時
-    /// </summary>
-    public void DieToMyself()
-    {
-        AddReward(-1.0f);
-        EndEpisode();
-    }
-
-    /// <summary>
-    /// ターゲットを破壊した時
-    /// </summary>
-    /// <param name="reward"></param>
-    public void HitTarget(float reward)
-    {
-        AddReward(reward);
-    }
-
-
     //　自分で操作
     public override void Heuristic(in ActionBuffers actionsOut)
     {
@@ -253,5 +150,29 @@ public class AutomationTank : Agent
 
         var discreateOut = actionsOut.DiscreteActions;
         discreateOut[0] = f ? 1 : 0;
+    }
+
+    /// <summary>
+    /// プレイヤー位置設定
+    /// </summary>
+    public void SetTarget(Transform player)
+    {
+        m_Player = player;
+    }
+
+    /// <summary>
+    /// 行動開始
+    /// </summary>
+    public void AwakeMovement()
+    {
+        //m_DecisionRequester.Enable();
+    }
+
+    /// <summary>
+    /// 行動停止
+    /// </summary>
+    public void StopMovement()
+    {
+        //m_DecisionRequester.Disable();
     }
 }

@@ -35,11 +35,6 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
         m_PlayerInput.actionEvents[1].AddListener(OnFire);
     }
 
-    private void Start()
-    {
-        StartCoroutine(AutoFire());
-    }
-
     private void FixedUpdate()
     {
         // ˆÚ“®‚Æ‰ñ“]
@@ -87,15 +82,5 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
         m_PlayerInput.actionEvents[0].RemoveAllListeners();
         // Fire“ü—ÍƒCƒxƒ“ƒg‚ÉOnFire‚ð’Ç‰Á
         m_PlayerInput.actionEvents[1].RemoveAllListeners();
-    }
-
-    private IEnumerator AutoFire()
-    {
-        while(true)
-        {
-            m_TankShooting.Fire();
-            yield return new WaitForSeconds(1.5f);
-        }
-        
     }
 }

@@ -59,12 +59,19 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
     public void InstantiateFromProperty(LEVEL_ART_TYPE type, Action completed = null)
     {
         if (m_CurrentAseet != null)
-            return;
+        {
+            m_CurrentAseet.ReleaseAsset();
+            m_CurrentAseet = null;
+        }
 
         LevelArtPropertyAsset levelArtPropertyAsset = GetPropertyAsset(type);
 
         if (levelArtPropertyAsset == null)
+        {
+            Debug.Log("levelArtPropertyAsset‚È‚µ");
             return;
+        }
+            
 
         Debug.Log(levelArtPropertyAsset.levelArtProperty.LevelArtPath);
         m_CurrentAseet = levelArtPropertyAsset.levelArtProperty.LevelArtPath;

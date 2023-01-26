@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6345843707339369171}
   - component: {fileID: 6345843707339369180}
   - component: {fileID: 6374669238257248526}
+  - component: {fileID: 1523098727666136641}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -49,16 +50,16 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  m_Target: {fileID: 0}
-  m_TargetRigidBody: {fileID: 0}
-  m_TankMovement: {fileID: 0}
-  m_TankShooting: {fileID: 0}
+  MaxStep: 5000
+  m_Player: {fileID: 0}
+  m_TankMovement: {fileID: 8707547720108385730}
+  m_TankShooting: {fileID: 8707547720108385734}
+  m_NavMeshAgent: {fileID: 2185052691591849005}
+  m_DecisionRequester: {fileID: 1523098727666136641}
   m_Tank: {fileID: 4330102953925509196}
-  initPos: {fileID: 0}
-  initTargetPos: {fileID: 0}
   m_CloseDistance: 4
-  m_FarDistance: 6
+  m_FarDistance: 8
+  m_DotRange: 0.9
 --- !u!114 &6374669238257248526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,24 +73,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
+    VectorObservationSize: 13
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 0
-      BranchSizes: 01000000
-    VectorActionSize: 01000000
+      m_NumContinuousActions: 2
+      BranchSizes: 02000000
+    VectorActionSize: 
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 7341154b8307a7f46b1527aa56b44ac5, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: TankAgent
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_DeterministicInference: 0
   m_ObservableAttributeHandling: 0
+--- !u!114 &1523098727666136641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6345843707339369170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 0
 --- !u!1001 &6345843707172133121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -605,6 +620,57 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6345843707172133121}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1807169433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330102953925509196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: TankAgentRayPerceptionSensor
+  m_DetectableTags:
+  - Player
+  - Obstacle
+  - Target
+  m_RaysPerDirection: 12
+  m_MaxRayDegrees: 120
+  m_SphereCastRadius: 0.5
+  m_RayLength: 25
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967241
+  m_ObservationStacks: 5
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 0
+--- !u!195 &2185052691591849005
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330102953925509196}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 0
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &6345843705619335238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,12 +694,36 @@ MonoBehaviour:
   m_TargetCanvas: {fileID: 0}
   m_RemainViewPerfab: {fileID: 1112241615347111296, guid: 1b29c5614f575b14dadc33e14759a3b0,
     type: 3}
+--- !u!114 &8707547720108385730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2362027772340485315, guid: c12f8902389dedd49bcfe928d9472aef,
+    type: 3}
+  m_PrefabInstance: {fileID: 6345843707172133121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330102953925509196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1db0937908e6df4caca4be824ac17b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &8707547720108385733 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 2362027772340485316, guid: c12f8902389dedd49bcfe928d9472aef,
     type: 3}
   m_PrefabInstance: {fileID: 6345843707172133121}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8707547720108385734 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2362027772340485319, guid: c12f8902389dedd49bcfe928d9472aef,
+    type: 3}
+  m_PrefabInstance: {fileID: 6345843707172133121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330102953925509196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb45458ce32ebe4db9f5d3160d57397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &8707547720108385735 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 2362027772340485318, guid: c12f8902389dedd49bcfe928d9472aef,
