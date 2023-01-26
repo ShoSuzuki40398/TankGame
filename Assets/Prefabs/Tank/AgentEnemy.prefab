@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 5
-  m_TurnSpeed: 360
+  m_TurnSpeed: 400
   m_DustTrails:
   - {fileID: 0}
   - {fileID: 0}
@@ -197,13 +197,13 @@ MonoBehaviour:
   m_DetectableTags:
   - Player
   - Obstacle
-  m_RaysPerDirection: 12
-  m_MaxRayDegrees: 120
+  m_RaysPerDirection: 16
+  m_MaxRayDegrees: 170
   m_SphereCastRadius: 0.5
   m_RayLength: 25
   m_RayLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967241
+    m_Bits: 4294965192
   m_ObservationStacks: 5
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
@@ -695,20 +695,14 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
-  m_Target: {fileID: 0}
-  m_TargetRigidBody: {fileID: 0}
+  m_Player: {fileID: 0}
   m_TankMovement: {fileID: 8097864886713804384}
   m_TankShooting: {fileID: 8097864886713804388}
   m_NavMeshAgent: {fileID: 5619556301282095659}
   m_Tank: {fileID: 3792475090082612206}
-  m_CloseDistance: 2
+  m_CloseDistance: 4
   m_FarDistance: 8
   m_DotRange: 0.8
-  respawnRange: 6
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 1344
-  targetManager: {fileID: 0}
 --- !u!114 &7538746607285748734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,7 +725,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 7341154b8307a7f46b1527aa56b44ac5, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: TankAgent

@@ -23,10 +23,7 @@ public class AutomationTank : Agent
 
     [SerializeField]
     private NavMeshAgent m_NavMeshAgent;
-
-    [SerializeField]
-    private DecisionRequester m_DecisionRequester;
-
+    
     // íÔ–{‘Ì
     [SerializeField]
     private GameObject m_Tank;
