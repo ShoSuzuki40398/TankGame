@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 5
-  m_TurnSpeed: 400
+  m_TurnSpeed: 300
   m_DustTrails:
   - {fileID: 0}
   - {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BulletSpawnPoint: {fileID: 6545570887813692967}
   m_FireSound: {fileID: 0}
-  m_FireInterval: 0.5
+  m_FireInterval: 0.3
   m_MinLaunchForce: 15
   m_MaxLaunchForce: 30
   m_ShellPool: {fileID: 8097864886713804395}
@@ -695,14 +695,19 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 5000
+  m_TargetRigidBody: {fileID: 0}
+  respawnRange: 7
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   m_Player: {fileID: 0}
   m_TankMovement: {fileID: 8097864886713804384}
   m_TankShooting: {fileID: 8097864886713804388}
   m_NavMeshAgent: {fileID: 5619556301282095659}
   m_Tank: {fileID: 3792475090082612206}
   m_CloseDistance: 4
-  m_FarDistance: 8
-  m_DotRange: 0.8
+  m_FarDistance: 7
+  m_DotRange: 0.85
 --- !u!114 &7538746607285748734
 MonoBehaviour:
   m_ObjectHideFlags: 0
