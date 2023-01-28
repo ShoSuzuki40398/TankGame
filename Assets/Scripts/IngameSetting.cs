@@ -36,6 +36,5 @@ public class IngameSetting : SingletonMonoBehaviour<IngameSetting>
     /// </summary>
     public void ResetSetting()
     {
-        CurrentLevelArtProperty.Reset();
     }
 }

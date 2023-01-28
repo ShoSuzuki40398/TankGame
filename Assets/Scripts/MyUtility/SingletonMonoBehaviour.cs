@@ -56,6 +56,7 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
 
     public void Destroy()
     {
+        Debug.Log("Destroy");
         Destroy(this);
     }
 }

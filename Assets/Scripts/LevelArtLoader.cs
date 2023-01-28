@@ -60,8 +60,9 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
     {
         if (m_CurrentAseet != null)
         {
-            m_CurrentAseet.ReleaseAsset();
-            m_CurrentAseet = null;
+            Debug.Log("カレントアセット削除");
+            //m_CurrentAseet.ReleaseAsset();
+            //m_CurrentAseet = null;
         }
 
         LevelArtPropertyAsset levelArtPropertyAsset = GetPropertyAsset(type);

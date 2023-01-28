@@ -9,26 +9,13 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayableTank : MonoBehaviour, IPlayerInput
 {
-    // TODO:リリース時に削除
-    [SerializeField]
-    float speed = 0.005f;
-
-    // TODO:リリース時に削除
-    [SerializeField]
-    private Transform m_Target;
-
-
-    [SerializeField]
     private TankMovement m_TankMovement;
-
-    [SerializeField]
     private TankShooting m_TankShooting;
+    private PlayerInput m_PlayerInput;
 
     // 移動量の入力値
     private Vector2 m_InputMoveVector = Vector2.zero;
-
-    private PlayerInput m_PlayerInput;
-
+    
     // 戦車本体
     [SerializeField]
     private GameObject m_Tank;
@@ -36,38 +23,20 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
 
     private void Awake()
     {
+        m_TankMovement = GetComponentInChildren<TankMovement>();
+        m_TankShooting = GetComponentInChildren<TankShooting>();
         m_PlayerInput = GameObject.FindGameObjectWithTag(CommonDefineData.ObjectNamePlayerInput).GetComponent<PlayerInput>();
 
         // Move入力イベントにOnMoveを追加
-        //m_PlayerInput.actionEvents[0].AddListener(OnMove);
+        m_PlayerInput.actionEvents[0].AddListener(OnMove);
         // Fire入力イベントにOnFireを追加
-        //m_PlayerInput.actionEvents[1].AddListener(OnFire);
+        m_PlayerInput.actionEvents[1].AddListener(OnFire);
     }
-
-    // TODO:リリース時に削除
-    private void Start()
-    {
-        StartCoroutine(AutoFire());
-    }
-
-    // TODO:リリース時に削除
-    private IEnumerator AutoFire()
-    {
-        while (true)
-        {
-            m_TankShooting.Fire();
-            yield return new WaitForSeconds(1.5f);
-        }
-
-    }
-
+    
     private void FixedUpdate()
     {
         // 移動と回転
-        //Movement();
-
-        // TODO:リリース時に削除
-        m_Tank.transform.rotation = Quaternion.Slerp(m_Tank.transform.rotation, Quaternion.LookRotation((m_Target.position - m_Tank.transform.position).normalized), speed * Time.deltaTime);
+        Movement();
     }
 
     /// <summary>
@@ -108,8 +77,8 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
     private void OnDestroy()
     {
         // Move入力イベントにOnMoveを追加
-        //m_PlayerInput.actionEvents[0].RemoveAllListeners();
+        m_PlayerInput.actionEvents[0].RemoveAllListeners();
         // Fire入力イベントにOnFireを追加
-        //m_PlayerInput.actionEvents[1].RemoveAllListeners();
+        m_PlayerInput.actionEvents[1].RemoveAllListeners();
     }
 }

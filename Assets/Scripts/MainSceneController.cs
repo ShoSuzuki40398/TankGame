@@ -98,7 +98,7 @@ public class MainSceneController : MonoBehaviour
                 m_EnemyTank = LevelArtLoader.Instance.EnemyTank;
 
                 // プレイヤーをターゲットとして設定
-                m_EnemyTank.SetTarget(m_PlayerTank.transform);
+                m_EnemyTank.SetTarget(m_PlayerTank.Tank.transform);
 
                 // インゲームカメラ設定
                 m_IngameCameras.SettingIngameCamera(m_PlayerTank.GetComponentInChildren<TankMovement>().transform, m_EnemyTank.GetComponentInChildren<TankMovement>().transform);
