@@ -22,14 +22,9 @@ public class MainSceneController : MonoBehaviour
     }
 
     // シーン状態ステートマシン
-    private StateMachine<MainSceneController,Scene_State> m_StateMachine = new StateMachine<MainSceneController, Scene_State>();
-    public StateMachine<MainSceneController, Scene_State> StateMachine { get { return m_StateMachine; }}
-
-    // BGMプレイヤー
-    [SerializeField]
-    private BackgroundMusicPlayer m_BgmPlayer;
-    public BackgroundMusicPlayer BgmPlayer { get { return m_BgmPlayer; } }
-
+    private StateMachine<MainSceneController, Scene_State> m_StateMachine = new StateMachine<MainSceneController, Scene_State>();
+    public StateMachine<MainSceneController, Scene_State> StateMachine { get { return m_StateMachine; } }
+    
     // シーン演出用タイムライン制御
     [SerializeField]
     private ScenePerformanceController m_ScenePerformanceController;
@@ -38,7 +33,7 @@ public class MainSceneController : MonoBehaviour
     // 入力制御
     [SerializeField]
     private PlayerInput m_PlayerInput;
-    
+
     // 入力マップキー
     private readonly string m_UIActionMapKey = "UI";
     private readonly string m_PlayerActionMapKey = "Player";
@@ -54,7 +49,7 @@ public class MainSceneController : MonoBehaviour
     // リザルトキャンバス
     [SerializeField]
     private Canvas m_ResultCanvas;
-    
+
     // リザルト制御
     [SerializeField]
     private ResultBehaviour m_ResultBehaviour;
@@ -88,41 +83,9 @@ public class MainSceneController : MonoBehaviour
         m_StateMachine.AddState(Scene_State.Battle_Finish, new BattleFinish(this));
         m_StateMachine.AddState(Scene_State.Battle_Result, new BattleResult(this));
         m_StateMachine.AddState(Scene_State.Scene_End, new SceneEnd(this));
-
-        // レベルアート作成
-        var property = IngameSetting.Instance.CurrentLevelArtProperty;
-
-        if (property.Exist())
-            LevelArtLoader.Instance.InstantiateFromProperty(property.LevelArtType,()=> {
-                m_PlayerTank = LevelArtLoader.Instance.PlayableTank;
-                m_EnemyTank = LevelArtLoader.Instance.EnemyTank;
-
-                // プレイヤーをターゲットとして設定
-                m_EnemyTank.SetTarget(m_PlayerTank.Tank.transform);
-
-                // インゲームカメラ設定
-                m_IngameCameras.SettingIngameCamera(m_PlayerTank.GetComponentInChildren<TankMovement>().transform, m_EnemyTank.GetComponentInChildren<TankMovement>().transform);
-
-                // 破壊時イベント設定
-                m_PlayerTank.GetComponentInChildren<Damageable>().OnDie.AddListener((damager,damageable)=> { m_ShakeCamera.Shake(); });
-                m_EnemyTank.GetComponentInChildren<Damageable>().OnDie.AddListener((damager, damageable) => { m_ShakeCamera.Shake(); });
-
-                // 残機全消費時イベント設定
-                TankRemain playerRemain = m_PlayerTank.GetComponentInChildren<TankRemain>();
-                TankRemain enemyRemain = m_EnemyTank.GetComponentInChildren<TankRemain>();
-                playerRemain.OnLostAllRemain.AddListener(()=> { m_ResultBehaviour.SetResultType(ResultBehaviour.ResultType.PlayerLose); });
-                playerRemain.OnLostAllRemain.AddListener(ToBattleEnd);
-
-                enemyRemain.OnLostAllRemain.AddListener(() => { m_ResultBehaviour.SetResultType(ResultBehaviour.ResultType.PlayerWin); });
-                enemyRemain.OnLostAllRemain.AddListener(ToBattleEnd);
-
-                // リザルト設定
-                m_ResultBehaviour.OnPrePlayerWin.AddListener(() => { m_ResultBehaviour.SetResultCameraTraget(m_PlayerTank.Tank.transform); });
-                m_ResultBehaviour.OnPrePlayerLose.AddListener(() => { m_ResultBehaviour.SetResultCameraTraget(m_EnemyTank.Tank.transform); });
-
-                // レベルアート読込時にシーン開始状態へ遷移する
-                m_StateMachine.ChangeState(Scene_State.Scene_Begin);
-            });
+        
+        // レベルアート読込時にシーン開始状態へ遷移する
+        m_StateMachine.ChangeState(Scene_State.Scene_Begin);
     }
 
     // Update is called once per frame
@@ -183,7 +146,7 @@ public class MainSceneController : MonoBehaviour
         m_ResultCanvas.Disable();
 
         // BGM停止
-        m_BgmPlayer.Stop();
+        BackgroundMusicPlayer.Instance.Stop();
     }
 
 
@@ -203,7 +166,7 @@ public class MainSceneController : MonoBehaviour
     {
         var actionMap = m_PlayerInput.actions.FindActionMap(key);
 
-        if(actionMap != null)
+        if (actionMap != null)
         {
             m_PlayerInput.currentActionMap = actionMap;
         }
@@ -219,14 +182,50 @@ public class MainSceneController : MonoBehaviour
         public override void Enter()
         {
             Debug.Log("SceneBegin");
+            // レベルアート作成
+            var property = IngameSetting.Instance.CurrentLevelArtProperty;
+            if (property.Exist())
+                LevelArtLoader.Instance.InstantiateFromProperty(property.LevelArtType, () =>
+                {
+                    owner.m_PlayerTank = LevelArtLoader.Instance.PlayableTank;
+                    owner.m_EnemyTank = LevelArtLoader.Instance.EnemyTank;
 
-            // シーン初期化
-            owner.SceneInitialize();
+                    // プレイヤーをターゲットとして設定
+                    owner.m_EnemyTank.SetTarget(owner.m_PlayerTank.Tank.transform);
 
-            // シーン開始演出を再生する
-            // 終了時のイベントはシグナルで設定しておく
-            // 次の状態（戦闘開始状態）への遷移は終了時イベントで行う(FinishSceneBeginPerformance)
-            owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Scene_Start);
+                    // インゲームカメラ設定
+                    owner.m_IngameCameras.SettingIngameCamera(owner.m_PlayerTank.GetComponentInChildren<TankMovement>().transform, owner.m_EnemyTank.GetComponentInChildren<TankMovement>().transform);
+
+                    // 破壊時イベント設定
+                    owner.m_PlayerTank.GetComponentInChildren<Damageable>().OnDie.AddListener((damager, damageable) => { owner.m_ShakeCamera.Shake(); });
+                    owner.m_EnemyTank.GetComponentInChildren<Damageable>().OnDie.AddListener((damager, damageable) => { owner.m_ShakeCamera.Shake(); });
+
+                    // 残機全消費時イベント設定
+                    TankRemain playerRemain = owner.m_PlayerTank.GetComponentInChildren<TankRemain>();
+                    TankRemain enemyRemain = owner.m_EnemyTank.GetComponentInChildren<TankRemain>();
+                    playerRemain.OnLostAllRemain.AddListener(() => { owner.m_ResultBehaviour.SetResultType(ResultBehaviour.ResultType.PlayerLose); });
+                    playerRemain.OnLostAllRemain.AddListener(owner.ToBattleEnd);
+
+                    enemyRemain.OnLostAllRemain.AddListener(() => { owner.m_ResultBehaviour.SetResultType(ResultBehaviour.ResultType.PlayerWin); });
+                    enemyRemain.OnLostAllRemain.AddListener(owner.ToBattleEnd);
+
+                    // リザルト設定
+                    owner.m_ResultBehaviour.OnPrePlayerWin.AddListener(() => { owner.m_ResultBehaviour.SetResultCameraTraget(owner.m_PlayerTank.Tank.transform); });
+                    owner.m_ResultBehaviour.OnPrePlayerLose.AddListener(() => { owner.m_ResultBehaviour.SetResultCameraTraget(owner.m_EnemyTank.Tank.transform); });
+                    
+                    // シーン初期化
+                    owner.SceneInitialize();
+
+                    // フェードイン開始
+                    SceneNavigator.Instance.FadeIn(()=>{
+                        // シーン開始演出を再生する
+                        // 終了時のイベントはシグナルで設定しておく
+                        // 次の状態（戦闘開始状態）への遷移は終了時イベントで行う(FinishSceneBeginPerformance)
+                        owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Scene_Start);
+                    });
+                });
+
+
         }
 
         public override void Exit()
@@ -248,7 +247,7 @@ public class MainSceneController : MonoBehaviour
         {
             Debug.Log("BattleStart");
             // BGM再生
-            owner.BgmPlayer.Play();
+            BackgroundMusicPlayer.Instance.Play();
 
             // インゲームキャンバス表示
             owner.m_IngameCanvas.Enable();
@@ -355,7 +354,7 @@ public class MainSceneController : MonoBehaviour
             owner.SceneFinalize();
 
             // タイトルバック
-            SceneTransitioner.Instance.TransitionToScene("Title");
+            SceneNavigator.Instance.Transition(CommonDefineData.SceneNameTitle);
         }
     }
 }

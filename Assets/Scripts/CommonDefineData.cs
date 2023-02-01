@@ -9,6 +9,10 @@ public class CommonDefineData
     public static string SceneNameMain = "Main";
     public static string SceneNameLevelArt = "Level Art";
 
+    // 各シーンインデックス
+    public static int SceneIndexTitle = 0;
+    public static int SceneIndexMain = 1;
+
     public static string ObjectNamePlayerInitPos = "PlayerInitPos";
     public static string ObjectNameEnemyInitPos = "EnemyInitPos";
 

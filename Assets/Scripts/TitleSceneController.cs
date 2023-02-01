@@ -31,16 +31,25 @@ public sealed class TitleSceneController : MonoBehaviour
 
     /// <summary>
     /// メインシーンに遷移する
-    /// 遷移する前に、指定したレベルアートの情報をIngameSettingに設定する
     /// </summary>
     /// <param name="type"></param>
-    public void TransitionMainScene(int type)
+    public void TransitionMainScene()
+    {
+        SceneNavigator.Instance.TransitionOnlyFadeOut(CommonDefineData.SceneNameMain);
+        //FadeController.Instance.FadeOut(() => {
+        //    // メインシーンに遷移する
+        //    SceneTransitioner.Instance.TransitionToScene(CommonDefineData.SceneNameMain);
+        //});
+    }
+
+    /// <summary>
+    /// 指定したレベルアートの情報をIngameSettingに設定する
+    /// </summary>
+    /// <param name="type"></param>
+    public void SetLevelArt(int type)
     {
         // レベルアート情報を設定
         IngameSetting.Instance.SetCurrentLevelArtProperty((LevelArtLoader.LEVEL_ART_TYPE)type);
-
-        // メインシーンに遷移する
-        SceneTransitioner.Instance.TransitionToScene(CommonDefineData.SceneNameMain);
     }
 
     private void Update()

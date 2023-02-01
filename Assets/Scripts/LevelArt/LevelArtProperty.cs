@@ -19,7 +19,17 @@ public class LevelArtProperty
     [SerializeField]
     private AssetReferenceGameObject m_LevelArtPath = null;
     public AssetReferenceGameObject LevelArtPath { get { return m_LevelArtPath; } }
-        
+
+    // “GˆÚ“®‘¬“x
+    [SerializeField]
+    private float m_EnemySpeed = 3;
+    public float EnemySpeed { get { return m_EnemySpeed; } }
+
+    // “GˆÚ“®‘¬“x
+    [SerializeField]
+    private float m_EnemyRotateSpeed = 440;
+    public float EnemyRotateSpeed { get { return m_EnemyRotateSpeed; } }
+
     public void Reset()
     {
         m_LevelArtType = LevelArtLoader.LEVEL_ART_TYPE.LEVEL_ART1;

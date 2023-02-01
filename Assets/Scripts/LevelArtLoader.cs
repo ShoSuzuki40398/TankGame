@@ -23,6 +23,7 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
     private List<LevelArtPropertyAsset> m_LevelArtPropaties = new List<LevelArtPropertyAsset>();
 
     private AssetReferenceGameObject m_CurrentAseet = null;
+    private LevelArtProperty m_CurrentLevelArtProperty = null;
 
     // プレイヤータンク
     [SerializeField]
@@ -36,10 +37,6 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
     private AutomationTank m_EnemyTank;
     public AutomationTank EnemyTank { get { return m_EnemyTank; } }
     
-    protected override void ActionInAwake()
-    {
-    }
-
     /// <summary>
     /// 指定種類のレベルアートアセットを取得する
     /// </summary>
@@ -58,13 +55,6 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
     /// <returns></returns>
     public void InstantiateFromProperty(LEVEL_ART_TYPE type, Action completed = null)
     {
-        if (m_CurrentAseet != null)
-        {
-            Debug.Log("カレントアセット削除");
-            //m_CurrentAseet.ReleaseAsset();
-            //m_CurrentAseet = null;
-        }
-
         LevelArtPropertyAsset levelArtPropertyAsset = GetPropertyAsset(type);
 
         if (levelArtPropertyAsset == null)
@@ -76,6 +66,7 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
 
         Debug.Log(levelArtPropertyAsset.levelArtProperty.LevelArtPath);
         m_CurrentAseet = levelArtPropertyAsset.levelArtProperty.LevelArtPath;
+        m_CurrentLevelArtProperty = levelArtPropertyAsset.levelArtProperty;
         var handle = m_CurrentAseet.InstantiateAsync(Vector3.zero, Quaternion.identity);
 
         handle.Completed += op =>
@@ -107,5 +98,7 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
         m_EnemyTank.transform.position = enemyPos.position;
         m_EnemyTank.transform.rotation = enemyPos.rotation;
         m_EnemyTank.GetComponentInChildren<TankRespawn>().SetRespawner(respawner);
+        m_EnemyTank.m_TankMovement.Speed = m_CurrentLevelArtProperty.EnemySpeed;
+        m_EnemyTank.m_TankMovement.TurnSpeed = m_CurrentLevelArtProperty.EnemyRotateSpeed;
     }
 }

@@ -7,46 +7,40 @@ using System;
 /// シングルトンベースクラス
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class SingletonMonoBehaviour<T> : MonoBehaviourWithInit where T : MonoBehaviourWithInit
 {
     private static T instance;
-    
+
+    // 外部参照用プロパティ
     public static T Instance
     {
         /// <summary>
-        /// インスタンスがない時は、空のオブジェクトを作成して
-        /// 指定シングルトンコンポーネントをアタッチする。
+        /// 前提として、事前にシーンに作成してあること
+        /// インスタンスがない時は、新規作成する
         /// </summary>
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 Type type = typeof(T);
 
                 instance = (T)FindObjectOfType(type);
-                if(instance == null)
+                if (instance == null)
                 {
                     GameObject obj = new GameObject(type.ToString());
                     T singlton = obj.AddComponent<T>();
                     instance = singlton;
-                    DontDestroyOnLoad(obj);
                 }
+                // 初アクセス時に初期化処理をする
+                instance.InitIfNeeded();
             }
 
             return instance;
         }
     }
 
-    /// <summary>
-    /// 起動時処理
-    /// 起動時に何か処理を挟みたいときに実装する
-    /// </summary>
-    protected virtual void ActionInAwake() { }
-
-    protected virtual void Awake()
+    protected sealed override void Awake()
     {
-        ActionInAwake();
-        DontDestroyOnLoad(gameObject);
     }
 
     public void OnApplicationQuit()
@@ -56,7 +50,39 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBe
 
     public void Destroy()
     {
-        Debug.Log("Destroy");
         Destroy(this);
     }
+}
+
+/// <summary>
+/// 初期化メソッドを備えたMonoBehaviour
+/// </summary>
+public class MonoBehaviourWithInit : MonoBehaviour
+{
+
+    //初期化したかどうかのフラグ(一度しか初期化が走らないようにするため)
+    private bool isInitialized = false;
+
+    /// <summary>
+    /// 必要なら初期化する
+    /// </summary>
+    public void InitIfNeeded()
+    {
+        if (isInitialized)
+        {
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+        Init();
+        isInitialized = true;
+    }
+
+    /// <summary>
+    /// 初期化(Awake時かその前の初アクセス、どちらかの一度しか行われない)
+    /// </summary>
+    protected virtual void Init() { }
+
+    //sealed overrideするためにvirtualで作成
+    protected virtual void Awake() { }
+
 }

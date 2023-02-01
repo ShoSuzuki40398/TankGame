@@ -17,7 +17,8 @@ public class AutomationTank : Agent
     [SerializeField]
     private Transform m_Target;
 
-    private TankMovement m_TankMovement;
+    [HideInInspector]
+    public TankMovement m_TankMovement;
     private TankShooting m_TankShooting;
     private NavMeshAgent m_NavMeshAgent;
     private PlayerInput m_PlayerInput;

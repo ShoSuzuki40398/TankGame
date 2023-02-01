@@ -30,10 +30,8 @@ public class BackgroundMusicPlayer : SingletonMonoBehaviour<BackgroundMusicPlaye
         }
     }
 
-    protected override void Awake()
+    protected override void Init()
     {
-        base.Awake();
-
         // BGM設定
         m_MusicAudioSource = gameObject.AddComponent<AudioSource>();
         m_MusicAudioSource.clip = musicAudioClip;
@@ -41,7 +39,7 @@ public class BackgroundMusicPlayer : SingletonMonoBehaviour<BackgroundMusicPlaye
         m_MusicAudioSource.loop = true;
         BgmVolume = bgmVolume;
 
-        if(musicPlayOnAwake)
+        if (musicPlayOnAwake)
         {
             m_MusicAudioSource.time = 0;
             m_MusicAudioSource.Play();

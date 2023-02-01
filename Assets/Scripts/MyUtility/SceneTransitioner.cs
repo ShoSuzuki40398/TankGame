@@ -8,10 +8,6 @@ using UnityEngine;
 /// </summary>
 public class SceneTransitioner : SingletonMonoBehaviour<SceneTransitioner>
 {
-    // フェード処理ONOFF
-    [SerializeField]
-    private bool isFade = false;
-
     /// <summary>
     /// 別シーンに遷移
     /// インスペクターから呼び出す用の関数
@@ -26,7 +22,7 @@ public class SceneTransitioner : SingletonMonoBehaviour<SceneTransitioner>
     /// </summary>
     public void TransitionToScene(string nextSceneName, Action action = null)
     {
-        Transition(nextSceneName,action);
+        Transition(nextSceneName, action);
     }
 
     /// <summary>
@@ -38,10 +34,7 @@ public class SceneTransitioner : SingletonMonoBehaviour<SceneTransitioner>
     {
         Action transAction = () => StartCoroutine(LoadSceneAsync(nextSceneName));
 
-        if (isFade)
-            FadeController.Instance.FadeOut(transAction);
-        else
-            transAction();
+        transAction();
     }
 
     /// <summary>
@@ -59,8 +52,5 @@ public class SceneTransitioner : SingletonMonoBehaviour<SceneTransitioner>
         {
             yield return null;
         }
-
-        if(isFade)
-            FadeController.Instance.FadeIn();
     }
 }

@@ -82,7 +82,7 @@ public class Shell : MonoBehaviour
         m_ReleaseTimer.Reset();
 
         // 爆発エフェクト生成
-        //Instantiate(m_ExplosionPrefab, transform.position, transform.rotation);
+        Instantiate(m_ExplosionPrefab, transform.position, transform.rotation);
     }
 
     private void OnTriggerEnter(Collider other)

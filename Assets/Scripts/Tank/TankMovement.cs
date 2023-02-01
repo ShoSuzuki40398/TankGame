@@ -13,9 +13,10 @@ public class TankMovement : MonoBehaviour
 {
     [SerializeField, Tooltip("移動速度")]
     private float m_Speed = 1f;
-    public float Speed { get { return m_Speed; } }
+    public float Speed { get { return m_Speed; }set { m_Speed = value; } }
     [SerializeField, Tooltip("回転速度")]
     private float m_TurnSpeed = 180f;
+    public float TurnSpeed { get { return m_TurnSpeed; } set { m_TurnSpeed = value; } }
 
     // 土埃エフェクト
     [SerializeField]
