@@ -21,6 +21,9 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
     private GameObject m_Tank;
     public GameObject Tank { get { return m_Tank; } }
 
+    // 可動フラグ
+    private bool m_IsMovement = true;
+
     private void Awake()
     {
         m_TankMovement = GetComponentInChildren<TankMovement>();
@@ -49,11 +52,25 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
     }
 
     /// <summary>
+    /// 可動フラグ設定
+    /// </summary>
+    public void SetIsMovement(bool flag)
+    {
+        m_IsMovement = flag;
+    }
+
+    /// <summary>
     /// 移動入力時イベント
     /// </summary>
     /// <param name="inputValue"></param>
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (!m_IsMovement)
+        {
+            m_InputMoveVector = Vector2.zero;
+            return;
+        }
+
         m_InputMoveVector = context.ReadValue<Vector2>();
     }
 
@@ -63,6 +80,9 @@ public class PlayableTank : MonoBehaviour, IPlayerInput
     /// <param name="inputValue"></param>
     public void OnFire(InputAction.CallbackContext context)
     {
+        if (!m_IsMovement)
+            return;
+
         // 押した瞬間だけ有効
         // Was○○ThisFrameがないと他のphaseも拾って1度に複数回呼ばれるので注意する
         // started

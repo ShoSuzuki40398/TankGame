@@ -31,6 +31,9 @@ public class AutomationTank : Agent
     // 移動量
     private Vector3 moveVelocity = Vector3.zero;
 
+    // 可動フラグ
+    private bool m_IsMovement = true;
+
     private void Awake()
     {
         m_TankMovement = GetComponentInChildren<TankMovement>();
@@ -49,16 +52,9 @@ public class AutomationTank : Agent
         m_NavMeshAgent.Move(moveVelocity * Time.deltaTime * m_TankMovement.Speed);
     }
 
-    // TODO:リリース時に削除
-    private void AgentInitialize()
-    {
-    }
-
     // エピソード開始時
     public override void OnEpisodeBegin()
     {
-        // TODO:リリース時に削除
-        AgentInitialize();
     }
 
     //　観察の収集
@@ -79,6 +75,9 @@ public class AutomationTank : Agent
     //　アクションの受け取りと報酬を与える
     public override void OnActionReceived(ActionBuffers actions)
     {
+        if (!m_IsMovement)
+            return;
+
         var continuousAction = actions.ContinuousActions;
         var discreateAction = actions.DiscreteActions;
 
@@ -122,6 +121,14 @@ public class AutomationTank : Agent
 
         var discreateOut = actionsOut.DiscreteActions;
         discreateOut[0] = f ? 1 : 0;
+    }
+
+    /// <summary>
+    /// 可動フラグ設定
+    /// </summary>
+    public void SetIsMovement(bool flag)
+    {
+        m_IsMovement = flag;
     }
 
     // TODO:リリース時に削除
