@@ -62,6 +62,8 @@ public class ScreenFader : MonoBehaviour
         // フェード処理はカメラではなくゲームのシステムとして運用するため
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
+        canvas.additionalShaderChannels = AdditionalCanvasShaderChannels.None;
+
         var scaler = obj.AddComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         // ※フェード処理にルールを使う場合はinspectorから変更できた方が良いかも
@@ -144,7 +146,7 @@ public class ScreenFader : MonoBehaviour
     /// アルファ値設定
     /// </summary>
     /// <param name="a"></param>
-    private void SetAlpha(float a)
+    public void SetAlpha(float a)
     {
         var color = m_FadePanel.color;
         color.a = a;

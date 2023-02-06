@@ -35,11 +35,16 @@ public sealed class TitleSceneController : MonoBehaviour
     /// <param name="type"></param>
     public void TransitionMainScene()
     {
-        SceneNavigator.Instance.TransitionOnlyFadeOut(CommonDefineData.SceneNameMain);
-        //FadeController.Instance.FadeOut(() => {
-        //    // メインシーンに遷移する
-        //    SceneTransitioner.Instance.TransitionToScene(CommonDefineData.SceneNameMain);
-        //});
+        SceneNavigator.Instance.TransitionOnlyFadeOut(CommonDefineData.SceneNameMain,OnTransition);
+    }
+
+    /// <summary>
+    /// 遷移時イベント
+    /// </summary>
+    private void OnTransition()
+    {
+        // ローディングテキスト表示
+        LoadingNavigator.Instance.StartLoading();
     }
 
     /// <summary>

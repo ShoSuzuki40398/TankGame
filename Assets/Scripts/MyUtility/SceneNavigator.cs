@@ -3,17 +3,13 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// シーン遷移制御
+/// </summary>
 [RequireComponent(typeof(ScreenFader))]
 public class SceneNavigator : SingletonMonoBehaviour<SceneNavigator>
 {
-    private ScreenFader m_ScreenFader;
-
-    // 遷移時のイベント
-    public class SceneTransEvent
-    {
-        public Action OnFadeInComplete = null;
-        public Action OnFadeOutComplete = null;
-    }
+    public ScreenFader m_ScreenFader;
 
     protected override void Init()
     {

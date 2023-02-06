@@ -216,6 +216,9 @@ public class MainSceneController : MonoBehaviour
                     // シーン初期化
                     owner.SceneInitialize();
 
+                    // ローディングテキスト非表示
+                    LoadingNavigator.Instance.StopLoading();
+
                     // フェードイン開始
                     SceneNavigator.Instance.FadeIn(()=>{
                         // シーン開始演出を再生する
@@ -224,8 +227,6 @@ public class MainSceneController : MonoBehaviour
                         owner.ScenePerformanceController.PlayOneShot(ScenePerformanceController.PerformanceType.Scene_Start);
                     });
                 });
-
-
         }
 
         public override void Exit()
