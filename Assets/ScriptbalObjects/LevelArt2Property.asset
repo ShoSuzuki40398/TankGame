@@ -14,10 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelArtAssetProperty/LevelArtPropertyAsset
   levelArtProperty:
     m_LevelArtType: 1
-    m_LevelArtPath:
-      m_AssetGUID: a89dce8f64b8b964aa60168bf4350efc
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
+    m_LevelArt: {fileID: 572437817561890308, guid: a89dce8f64b8b964aa60168bf4350efc,
+      type: 3}
     m_EnemySpeed: 4
     m_EnemyRotateSpeed: 480

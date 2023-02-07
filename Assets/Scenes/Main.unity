@@ -2569,7 +2569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1827134394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3558,7 +3558,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7594681cbf37d2c41b6d345982b8b374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BgmPlayer: {fileID: 1381228296}
   m_ScenePerformanceController: {fileID: 1837811670}
   m_PlayerInput: {fileID: 1805747556}
   m_IngameCanvas: {fileID: 1922014719}

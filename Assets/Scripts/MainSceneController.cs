@@ -184,7 +184,6 @@ public class MainSceneController : MonoBehaviour
             Debug.Log("SceneBegin");
             // レベルアート作成
             var property = IngameSetting.Instance.CurrentLevelArtProperty;
-            if (property.Exist())
                 LevelArtLoader.Instance.InstantiateFromProperty(property.LevelArtType, () =>
                 {
                     owner.m_PlayerTank = LevelArtLoader.Instance.PlayableTank;
@@ -217,7 +216,7 @@ public class MainSceneController : MonoBehaviour
                     owner.SceneInitialize();
 
                     // ローディングテキスト非表示
-                    LoadingNavigator.Instance.StopLoading();
+                    //LoadingNavigator.Instance.StopLoading();
 
                     // フェードイン開始
                     SceneNavigator.Instance.FadeIn(()=>{

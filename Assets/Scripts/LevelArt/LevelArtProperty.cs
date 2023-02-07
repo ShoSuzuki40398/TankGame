@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using System;
 
 /// <summary>
@@ -15,10 +12,10 @@ public class LevelArtProperty
     private LevelArtLoader.LEVEL_ART_TYPE m_LevelArtType = LevelArtLoader.LEVEL_ART_TYPE.LEVEL_ART1;
     public LevelArtLoader.LEVEL_ART_TYPE LevelArtType { get { return m_LevelArtType; } }
 
-    // アセットアドレス
+    // レベルアートプレハブ
     [SerializeField]
-    private AssetReferenceGameObject m_LevelArtPath = null;
-    public AssetReferenceGameObject LevelArtPath { get { return m_LevelArtPath; } }
+    private GameObject m_LevelArt;
+    public GameObject LevelArt { get { return m_LevelArt; } }
 
     // 敵移動速度
     [SerializeField]
@@ -33,14 +30,5 @@ public class LevelArtProperty
     public void Reset()
     {
         m_LevelArtType = LevelArtLoader.LEVEL_ART_TYPE.LEVEL_ART1;
-        m_LevelArtPath = null;
-    }
-
-    public bool Exist()
-    {
-        if (m_LevelArtPath == null)
-            return false;
-
-        return true;
     }
 }

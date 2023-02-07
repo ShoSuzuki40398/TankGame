@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SerializeExtension;
-using UnityEngine.AddressableAssets;
 using System;
 
 /// <summary>
@@ -22,7 +21,6 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
     [SerializeField]
     private List<LevelArtPropertyAsset> m_LevelArtPropaties = new List<LevelArtPropertyAsset>();
 
-    private AssetReferenceGameObject m_CurrentAseet = null;
     private LevelArtProperty m_CurrentLevelArtProperty = null;
 
     // プレイヤータンク
@@ -62,22 +60,16 @@ public class LevelArtLoader : SingletonMonoBehaviour<LevelArtLoader>, IScriptabl
             Debug.Log("levelArtPropertyAssetなし");
             return;
         }
-            
-
-        Debug.Log(levelArtPropertyAsset.levelArtProperty.LevelArtPath);
-        m_CurrentAseet = levelArtPropertyAsset.levelArtProperty.LevelArtPath;
+        
         m_CurrentLevelArtProperty = levelArtPropertyAsset.levelArtProperty;
-        var handle = m_CurrentAseet.InstantiateAsync(Vector3.zero, Quaternion.identity);
+        var levelArt = Instantiate(m_CurrentLevelArtProperty.LevelArt);
 
-        handle.Completed += op =>
-        {
-            // 戦車生成
-            Transform playerPos = op.Result.transform.Find(CommonDefineData.ObjectNamePlayerInitPos);
-            Transform enemyPos = op.Result.transform.Find(CommonDefineData.ObjectNameEnemyInitPos);
-            Respawner respawner = op.Result.GetComponentInChildren<Respawner>();
-            CreateTanks(playerPos, enemyPos,respawner);
-            completed?.Invoke();
-        };
+        // 戦車生成
+        Transform playerPos = levelArt.transform.Find(CommonDefineData.ObjectNamePlayerInitPos);
+        Transform enemyPos = levelArt.transform.Find(CommonDefineData.ObjectNameEnemyInitPos);
+        Respawner respawner = levelArt.GetComponentInChildren<Respawner>();
+        CreateTanks(playerPos, enemyPos, respawner);
+        completed?.Invoke();
     }
 
     /// <summary>

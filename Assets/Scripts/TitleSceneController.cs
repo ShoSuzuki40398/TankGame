@@ -44,7 +44,7 @@ public sealed class TitleSceneController : MonoBehaviour
     private void OnTransition()
     {
         // ローディングテキスト表示
-        LoadingNavigator.Instance.StartLoading();
+        //LoadingNavigator.Instance.StartLoading();
     }
 
     /// <summary>
